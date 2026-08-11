@@ -20,7 +20,18 @@ const NAV_ITEMS = [
 
 const SKILLS = ['React', 'TypeScript', 'Next.js', 'Node.js', 'Tailwind CSS', 'GraphQL', 'PostgreSQL', 'Docker'];
 
-const CLIENTS = ['NORTHWIND', 'VERTEX LABS', 'ORBITAL', 'LUMEN', 'ATLAS CO.', 'HALCYON'];
+const TECH_STACK = [
+  { name: 'React', icon: 'fa-brands fa-react' },
+  { name: 'TypeScript', icon: 'fa-brands fa-js' },
+  { name: 'Node.js', icon: 'fa-brands fa-node-js' },
+  { name: 'Tailwind CSS', icon: 'fa-brands fa-css3-alt' },
+  { name: 'GraphQL', icon: 'fa-solid fa-diagram-project' },
+  { name: 'Docker', icon: 'fa-brands fa-docker' },
+  { name: 'PostgreSQL', icon: 'fa-solid fa-database' },
+  { name: 'Git', icon: 'fa-brands fa-git-alt' },
+  { name: 'Figma', icon: 'fa-brands fa-figma' },
+  { name: 'HTML5', icon: 'fa-brands fa-html5' },
+];
 
 const FACTS = [
   { label: 'Location', value: 'Jakarta, Indonesia', icon: 'fa-solid fa-location-dot' },
@@ -54,12 +65,36 @@ const EXPERTISE = [
 ];
 
 const PROJECTS = [
-  { title: 'Northwind Dashboard', tag: 'SaaS Dashboard', domain: 'northwind.app', icon: 'fa-solid fa-gauge-high', gradient: 'from-orange-400 to-rose-500' },
-  { title: 'Vertex Banking App', tag: 'Mobile App', domain: 'vertexbank.io', icon: 'fa-solid fa-mobile-screen-button', gradient: 'from-indigo-500 to-blue-600' },
-  { title: 'Orbital Analytics', tag: 'Data Platform', domain: 'orbital.dev', icon: 'fa-solid fa-chart-line', gradient: 'from-emerald-500 to-teal-600' },
-  { title: 'Lumen Commerce', tag: 'E-Commerce', domain: 'shoplumen.com', icon: 'fa-solid fa-cart-shopping', gradient: 'from-amber-400 to-orange-500' },
-  { title: 'Atlas Booking', tag: 'Web App', domain: 'atlasbook.app', icon: 'fa-solid fa-calendar-check', gradient: 'from-sky-500 to-cyan-600' },
-  { title: 'Halcyon Marketing', tag: 'Marketing Site', domain: 'halcyon.co', icon: 'fa-solid fa-bullhorn', gradient: 'from-fuchsia-500 to-purple-600' },
+  {
+    title: 'Northwind Dashboard', tag: 'SaaS Dashboard', domain: 'northwind.app',
+    img: 'https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/northwind-dash/800/600',
+  },
+  {
+    title: 'Vertex Banking App', tag: 'Mobile App', domain: 'vertexbank.io',
+    img: 'https://images.pexels.com/photos/6406691/pexels-photo-6406691.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/vertex-bank/800/600',
+  },
+  {
+    title: 'Orbital Analytics', tag: 'Data Platform', domain: 'orbital.dev',
+    img: 'https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/orbital-data/800/600',
+  },
+  {
+    title: 'Lumen Commerce', tag: 'E-Commerce', domain: 'shoplumen.com',
+    img: 'https://images.pexels.com/photos/5585793/pexels-photo-5585793.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/lumen-shop/800/600',
+  },
+  {
+    title: 'Atlas Booking', tag: 'Web App', domain: 'atlasbook.app',
+    img: 'https://images.pexels.com/photos/33136468/pexels-photo-33136468.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/atlas-book/800/600',
+  },
+  {
+    title: 'Halcyon Marketing', tag: 'Marketing Site', domain: 'halcyon.co',
+    img: 'https://images.pexels.com/photos/6483621/pexels-photo-6483621.jpeg?auto=compress&cs=tinysrgb&w=800',
+    fb: 'https://picsum.photos/seed/halcyon-mkt/800/600',
+  },
 ];
 
 const STATS = [
@@ -74,19 +109,22 @@ const TESTIMONIALS = [
     quote: "Surya rebuilt our dashboard from scratch and cut load times in half. The handoff docs alone were better than most agencies' final deliverables.",
     name: 'Priya Anand',
     title: 'VP Product, Northwind',
-    initials: 'PA',
+    img: 'https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=400',
+    fb: 'https://picsum.photos/seed/priya-anand/200/200',
   },
   {
     quote: 'We came in with a rough sketch and left with a production React app our own engineers actually enjoyed extending.',
     name: 'Marcus Ude',
     title: 'CTO, Vertex Labs',
-    initials: 'MU',
+    img: 'https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=400',
+    fb: 'https://picsum.photos/seed/marcus-ude/200/200',
   },
   {
     quote: 'Organic traffic doubled in four months. Surya treats SEO as part of the build, not an afterthought bolted on at the end.',
     name: 'Sofia Reyes',
     title: 'Founder, Halcyon',
-    initials: 'SR',
+    img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=400',
+    fb: 'https://picsum.photos/seed/sofia-reyes/200/200',
   },
 ];
 
@@ -142,6 +180,19 @@ function Reveal({ children, className = '', delay = 0 }) {
 }
 
 /* ----------------------------- Shared bits -------------------------------- */
+function SmartImg({ src, fallback, alt, className, style }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      className={className}
+      style={style}
+      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallback; }}
+    />
+  );
+}
+
 function Eyebrow({ children }) {
   return (
     <span className="inline-flex items-center gap-2 font-mono text-xs text-[#FF5A36]">
@@ -176,32 +227,6 @@ function HireBadge({ onClick }) {
         </span>
       </span>
     </button>
-  );
-}
-
-function CodeCard() {
-  return (
-    <div className="relative max-w-md mx-auto lg:mx-0">
-      <DotGrid className="-inset-10 hidden sm:block" />
-      <div className="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-[#FF5A36]/15 blur-2xl" />
-      <div className="relative rotate-1 hover:rotate-0 transition-transform duration-500 rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] shadow-xl shadow-black/5 overflow-hidden">
-        <div className="flex items-center gap-1.5 px-4 py-3 border-b border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#151926]">
-          <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
-          <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
-          <span className="h-3 w-3 rounded-full bg-[#28C840]" />
-          <span className="ml-3 font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">profile.json</span>
-        </div>
-        <div className="p-6 font-mono text-[13px] sm:text-sm leading-relaxed">
-          <p className="text-[#5B6270] dark:text-[#8D95A8]">{'{'}</p>
-          <p className="pl-4"><span className="text-[#FF5A36]">"name"</span>: <span className="text-[#12141C] dark:text-[#F4F3EF]">"Surya Adi Darmawan"</span>,</p>
-          <p className="pl-4"><span className="text-[#FF5A36]">"role"</span>: <span className="text-[#12141C] dark:text-[#F4F3EF]">"Software Engineer"</span>,</p>
-          <p className="pl-4"><span className="text-[#FF5A36]">"location"</span>: <span className="text-[#12141C] dark:text-[#F4F3EF]">"Jakarta, ID"</span>,</p>
-          <p className="pl-4"><span className="text-[#FF5A36]">"stack"</span>: <span className="text-[#12141C] dark:text-[#F4F3EF]">["React", "Node", "TypeScript"]</span>,</p>
-          <p className="pl-4"><span className="text-[#FF5A36]">"status"</span>: <span className="text-emerald-500">"available_for_work"</span></p>
-          <p className="text-[#5B6270] dark:text-[#8D95A8]">{'}'}</p>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -311,7 +336,7 @@ function Header({ active, onNavClick }) {
 function Hero({ onNavClick }) {
   return (
     <section id="home" className="scroll-mt-24 relative bg-white dark:bg-[#0A0C12] pt-36 pb-20 sm:pt-44 sm:pb-28">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 lg:gap-10 items-center">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-[#FFF1EC] dark:bg-[#241610] px-4 py-1.5 font-mono text-xs text-[#FF5A36] mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A36] animate-pulse" /> available for work — 2026
@@ -334,7 +359,22 @@ function Hero({ onNavClick }) {
             <HireBadge onClick={() => onNavClick('contact')} />
           </div>
         </div>
-        <CodeCard />
+
+        <div className="relative max-w-sm mx-auto lg:mx-0 lg:justify-self-end">
+          <DotGrid className="-inset-8 hidden sm:block" />
+          <div className="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-[#FF5A36]/15 blur-2xl" />
+          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-xl shadow-black/5">
+            <SmartImg
+              src="/images/portrait.jpg"
+              fallback="https://picsum.photos/seed/surya-portrait/800/1000"
+              alt="Surya Adi Darmawan"
+              className="w-full aspect-[4/5] object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-6 -left-6 hidden sm:block rotate-[-3deg] rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] shadow-lg px-4 py-3 font-mono text-xs">
+            <span className="text-[#FF5A36]">status</span>: <span className="text-emerald-500">"available_for_work"</span>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -360,6 +400,19 @@ function About() {
             needed both a sharper look and a faster load time. I care most about the details nobody notices
             until they're missing.
           </p>
+
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            {FACTS.map((f) => (
+              <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
+                <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
+                  <i className={`${f.icon} text-xs`} aria-hidden="true"></i>
+                  <span className="font-mono text-[10px] uppercase tracking-wide text-[#5B6270] dark:text-[#8D95A8]">{f.label}</span>
+                </div>
+                <p className="text-sm font-semibold text-[#12141C] dark:text-white">{f.value}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-10">
             {SKILLS.map((skill) => (
               <span key={skill} className="font-mono text-xs px-3 py-1.5 rounded-full bg-white dark:bg-[#151926] text-[#12141C] dark:text-[#F4F3EF] border border-[#E7E5E1] dark:border-[#232A3D]">
@@ -377,22 +430,18 @@ function About() {
         </Reveal>
 
         <Reveal delay={100} className="relative">
-          <DotGrid className="-inset-10 hidden sm:block" />
-          <div className="relative rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-8 shadow-sm">
-            <div className="flex items-center gap-2 mb-6 font-mono text-xs text-[#FF5A36]">
-              <i className="fa-solid fa-terminal" aria-hidden="true"></i>
-              <span>whoami --verbose</span>
+          <DotGrid className="-inset-8 hidden sm:block" />
+          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-sm">
+            <SmartImg
+              src="/images/speaking-2.jpg"
+              fallback="https://picsum.photos/seed/surya-speaking/900/1100"
+              alt="Surya Adi Darmawan speaking at a Primakara University tech event"
+              className="w-full aspect-[4/5] object-cover"
+              style={{ objectPosition: '38% 20%' }}
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
+              <p className="text-white text-sm font-medium">Speaking at a Primakara University tech event</p>
             </div>
-            <dl className="space-y-5">
-              {FACTS.map((f) => (
-                <div key={f.label} className="flex items-center justify-between border-b border-[#E7E5E1] dark:border-[#232A3D] pb-4 last:border-0 last:pb-0">
-                  <dt className="flex items-center gap-3 text-sm text-[#5B6270] dark:text-[#8D95A8]">
-                    <i className={`${f.icon} text-[#FF5A36] w-4`} aria-hidden="true"></i>{f.label}
-                  </dt>
-                  <dd className="text-sm font-semibold text-[#12141C] dark:text-white">{f.value}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </Reveal>
       </div>
@@ -400,18 +449,27 @@ function About() {
   );
 }
 
-/* ------------------------------ Client Logos --------------------------------- */
-function ClientLogos() {
+/* ------------------------------ Tech Marquee --------------------------------- */
+function TechMarquee() {
+  const track = [...TECH_STACK, ...TECH_STACK];
   return (
-    <section className="py-14 bg-white dark:bg-[#0A0C12]">
+    <section className="py-14 bg-white dark:bg-[#0A0C12] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <p className="text-center font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mb-8">
-          trusted by teams at
+          tools &amp; technologies I work with
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-          {CLIENTS.map((c) => (
-            <span key={c} className="font-display font-bold text-lg tracking-wide text-[#12141C] dark:text-white opacity-35 hover:opacity-100 transition-opacity cursor-default">
-              {c}
+      </div>
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 z-10 bg-gradient-to-r from-white dark:from-[#0A0C12] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 z-10 bg-gradient-to-l from-white dark:from-[#0A0C12] to-transparent" />
+        <div className="flex w-max animate-[marquee_28s_linear_infinite] hover:[animation-play-state:paused]">
+          {track.map((t, i) => (
+            <span
+              key={`${t.name}-${i}`}
+              className="flex items-center gap-3 px-8 font-display font-semibold text-lg text-[#12141C] dark:text-white whitespace-nowrap opacity-70"
+            >
+              <i className={`${t.icon} text-[#FF5A36]`} aria-hidden="true"></i>
+              {t.name}
             </span>
           ))}
         </div>
@@ -471,9 +529,14 @@ function Gallery({ onNavClick }) {
           {PROJECTS.map((p, i) => (
             <Reveal key={p.title} delay={(i % 3) * 100}>
               <div className="group rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] overflow-hidden bg-white dark:bg-[#10131C] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className={`relative h-40 bg-gradient-to-br ${p.gradient} flex items-center justify-center overflow-hidden`}>
-                  <DotGrid className="inset-0 !opacity-20" />
-                  <i className={`${p.icon} text-4xl text-white/90 relative`} aria-hidden="true"></i>
+                <div className="relative h-44 overflow-hidden">
+                  <SmartImg
+                    src={p.img}
+                    fallback={p.fb}
+                    alt={p.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
                   <div className="absolute top-3 left-3 right-3 flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-white/70" />
                     <span className="h-2 w-2 rounded-full bg-white/70" />
@@ -542,8 +605,8 @@ function Testimonials() {
         <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-14">What clients say</h2>
 
         <div className="relative rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] px-8 py-12 sm:px-14">
-          <div className="h-16 w-16 rounded-full bg-gradient-to-br from-[#FF7A57] to-[#E64A28] flex items-center justify-center text-white font-display font-bold text-lg ring-4 ring-[#FF5A36]/10 mx-auto mb-6">
-            {t.initials}
+          <div className="h-16 w-16 rounded-full overflow-hidden ring-4 ring-[#FF5A36]/10 mx-auto mb-6">
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-full object-cover" />
           </div>
           <i className="fa-solid fa-quote-left text-2xl text-[#FF5A36]/30 mb-4 inline-block" aria-hidden="true"></i>
           <div className="flex justify-center gap-1 mb-6">
@@ -601,9 +664,15 @@ function Contact() {
     <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-y border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-4xl mx-auto px-6 lg:px-10">
         <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] overflow-hidden">
-          <div className="bg-gradient-to-r from-[#FF7A57] to-[#E64A28] px-8 sm:px-14 py-14 text-center">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-3">Let's build something great</h2>
-            <p className="text-white/85 max-w-xl mx-auto">Have a project in mind, or just want to talk through an idea? My inbox is open.</p>
+          <div className="relative overflow-hidden bg-[#12141C] px-8 sm:px-14 py-16 text-center">
+            <DotGrid className="inset-0 !opacity-[0.08]" />
+            <span aria-hidden className="absolute -top-10 -left-4 font-mono text-[9rem] leading-none text-white/[0.05] select-none">{'{'}</span>
+            <span aria-hidden className="absolute -bottom-16 -right-4 font-mono text-[9rem] leading-none text-white/[0.05] select-none">{'}'}</span>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 font-mono text-xs text-[#FF8C6B] mb-6">
+              <i className="fa-solid fa-terminal text-[10px]" aria-hidden="true"></i> $ lets-build --together
+            </span>
+            <h2 className="relative font-display text-3xl sm:text-4xl font-bold text-white mb-3">Let's build something great</h2>
+            <p className="relative text-white/60 max-w-xl mx-auto">Have a project in mind, or just want to talk through an idea? My inbox is open.</p>
           </div>
           <div className="bg-white dark:bg-[#10131C] px-6 sm:px-14 py-12">
             {submitted ? (
@@ -759,6 +828,10 @@ export default function App() {
           body { font-family: 'IBM Plex Sans', sans-serif; }
           .font-display { font-family: 'Sora', sans-serif; }
           .font-mono { font-family: 'IBM Plex Mono', monospace; }
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
           @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
               animation-duration: 0.01ms !important;
@@ -772,7 +845,7 @@ export default function App() {
           <Header active={active} onNavClick={scrollToSection} />
           <Hero onNavClick={scrollToSection} />
           <About />
-          <ClientLogos />
+          <TechMarquee />
           <Expertise />
           <Gallery onNavClick={scrollToSection} />
           <Stats />
