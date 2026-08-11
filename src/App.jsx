@@ -29,18 +29,21 @@ const EXPERTISE = [
     desc: 'Interfaces that balance clarity and character — wireframed, prototyped, and pixel-checked before a line of code ships.',
     img: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80',
     fb: 'https://picsum.photos/seed/webdesign/800/600',
+    icon: 'fa-solid fa-palette',
   },
   {
     title: 'React Applications',
     desc: 'Component-driven front ends built for speed and scale, from internal dashboards to full customer-facing products.',
     img: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800',
     fb: 'https://picsum.photos/seed/reactapp/800/600',
+    icon: 'fa-solid fa-code',
   },
   {
     title: 'SEO Optimization',
     desc: 'Technical audits and content structure that get real pages found by real people, without wrecking the design.',
     img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
     fb: 'https://picsum.photos/seed/seo/800/600',
+    icon: 'fa-solid fa-magnifying-glass-chart',
   },
 ];
 
@@ -54,10 +57,10 @@ const PROJECTS = [
 ];
 
 const STATS = [
-  { label: 'Projects Completed', value: 120, suffix: '+' },
-  { label: 'Years Experience', value: 8, suffix: '+' },
-  { label: 'Happy Clients', value: 45, suffix: '' },
-  { label: 'Client Satisfaction', value: 99, suffix: '%' },
+  { label: 'Projects Completed', value: 120, suffix: '+', icon: 'fa-solid fa-diagram-project' },
+  { label: 'Years Experience', value: 8, suffix: '+', icon: 'fa-solid fa-calendar-check' },
+  { label: 'Happy Clients', value: 45, suffix: '', icon: 'fa-solid fa-people-group' },
+  { label: 'Client Satisfaction', value: 99, suffix: '%', icon: 'fa-solid fa-face-smile' },
 ];
 
 const TESTIMONIALS = [
@@ -248,11 +251,16 @@ function Header({ active, onNavClick }) {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      <div className={`fixed inset-0 z-[60] lg:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-[#0A0E1A]/60" onClick={() => setMobileOpen(false)} />
-        <div className={`absolute top-0 right-0 h-full w-[80%] max-w-sm bg-white dark:bg-[#0B1120] shadow-2xl transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="flex items-center justify-between h-20 px-6">
+      {/* Mobile backdrop — independent fixed layer, dims the page behind the drawer */}
+      <div
+        onClick={() => setMobileOpen(false)}
+        className={`fixed inset-0 z-[60] h-screen w-screen bg-slate-950/60 lg:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      />
+      {/* Mobile panel — independent fixed layer with a guaranteed opaque, full-height background */}
+      <div
+        className={`fixed inset-y-0 right-0 z-[70] h-screen w-[80%] max-w-sm bg-white dark:bg-slate-950 shadow-2xl lg:hidden overflow-y-auto transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+        <div className="flex items-center justify-between h-20 px-6 border-b border-[#E9E7E1] dark:border-[#1D273D]">
             <span className="font-display font-bold text-[#10131C] dark:text-white">Menu</span>
             <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="h-10 w-10 flex items-center justify-center rounded-full text-[#10131C] dark:text-white hover:bg-[#F7F6F2] dark:hover:bg-[#131B2E]">
               <X size={22} />
@@ -271,7 +279,6 @@ function Header({ active, onNavClick }) {
               </button>
             ))}
           </nav>
-        </div>
       </div>
     </header>
   );
@@ -309,7 +316,7 @@ function Hero({ onNavClick }) {
           src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80"
           fallback="https://picsum.photos/seed/heroportrait/1200/1400"
           alt="Portrait of Surya Adi Darmawan"
-          className="w-full h-full object-cover absolute inset-0"
+          className="w-full h-full object-cover object-top absolute inset-0"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
       </div>
@@ -326,10 +333,10 @@ function About() {
           <div className="relative max-w-md">
             <div className="absolute -bottom-5 -right-5 w-full h-full rounded-3xl border-2 border-[#FF6B4A]" />
             <SmartImg
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
               fallback="https://picsum.photos/seed/aboutphoto/800/900"
               alt="Surya Adi Darmawan at work"
-              className="relative w-full aspect-[4/5] object-cover rounded-3xl"
+              className="relative w-full aspect-[4/5] object-cover object-top rounded-3xl"
             />
           </div>
         </Reveal>
@@ -410,6 +417,10 @@ function Expertise() {
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <span className="absolute bottom-4 left-4 h-11 w-11 rounded-full bg-[#FF6B4A] flex items-center justify-center text-white shadow-lg">
+                    <i className={`${item.icon} text-base`} aria-hidden="true"></i>
+                  </span>
                 </div>
                 <div className="p-8">
                   <h3 className="font-display text-xl font-bold text-[#10131C] dark:text-white mb-3">{item.title}</h3>
@@ -473,6 +484,9 @@ function StatItem({ stat }) {
   const count = useCountUp(stat.value, inView);
   return (
     <div ref={ref} className="text-center">
+      <div className="h-11 w-11 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4">
+        <i className={`${stat.icon} text-[#FF8C6B] text-lg`} aria-hidden="true"></i>
+      </div>
       <div className="font-display text-4xl sm:text-5xl font-bold text-white mb-2">
         {count}{stat.suffix}
       </div>
@@ -514,6 +528,7 @@ function Testimonials() {
               <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-full object-cover" />
             </div>
           </div>
+          <i className="fa-solid fa-quote-left text-2xl text-[#FF6B4A]/30 mb-4 inline-block" aria-hidden="true"></i>
           <div className="flex justify-center gap-1 mb-6">
             {[...Array(5)].map((_, i) => <Star key={i} size={16} className="fill-[#FF6B4A] text-[#FF6B4A]" />)}
           </div>
@@ -583,39 +598,48 @@ function Contact() {
             <form onSubmit={handleSubmit} className="max-w-2xl mx-auto grid sm:grid-cols-2 gap-6">
               <div className="sm:col-span-1">
                 <label className="block text-sm font-medium text-[#10131C] dark:text-white mb-2">Name</label>
-                <input
-                  required
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Your name"
-                  className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent px-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A]"
-                />
+                <div className="relative">
+                  <i className="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
+                  <input
+                    required
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent pl-11 pr-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A]"
+                  />
+                </div>
               </div>
               <div className="sm:col-span-1">
                 <label className="block text-sm font-medium text-[#10131C] dark:text-white mb-2">Email</label>
-                <input
-                  required
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent px-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A]"
-                />
+                <div className="relative">
+                  <i className="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
+                  <input
+                    required
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    type="email"
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent pl-11 pr-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A]"
+                  />
+                </div>
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-[#10131C] dark:text-white mb-2">Message</label>
-                <textarea
-                  required
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  rows={5}
-                  placeholder="Tell me about your project..."
-                  className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent px-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A] resize-none"
-                />
+                <div className="relative">
+                  <i className="fa-solid fa-message absolute left-4 top-4 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
+                  <textarea
+                    required
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    className="w-full rounded-xl border border-[#E9E7E1] dark:border-[#232E47] bg-transparent pl-11 pr-4 py-3 text-[#10131C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF6B4A] resize-none"
+                  />
+                </div>
               </div>
               <div className="sm:col-span-2 flex items-start gap-3">
                 <input
