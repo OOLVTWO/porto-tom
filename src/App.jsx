@@ -250,12 +250,12 @@ function Header({ active, onNavClick }) {
           Adi<span className="text-[#FF5A36]">.</span>Darmawan
         </button>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => handleClick(item.id)}
-              className={`relative px-4 py-2 font-mono text-xs uppercase tracking-wide rounded-full transition-colors ${
+              className={`relative px-3 py-2 font-mono text-xs uppercase tracking-wide rounded-full transition-colors ${
                 active === item.id
                   ? 'text-[#FF5A36]'
                   : scrolled
@@ -284,7 +284,7 @@ function Header({ active, onNavClick }) {
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className={`lg:hidden h-10 w-10 flex items-center justify-center rounded-full transition-colors ${scrolled || mobileOpen ? 'text-[#12141C] dark:text-white' : 'text-white'}`}
+            className={`md:hidden h-10 w-10 flex items-center justify-center rounded-full transition-colors ${scrolled || mobileOpen ? 'text-[#12141C] dark:text-white' : 'text-white'}`}
           >
             <Menu size={22} />
           </button>
@@ -294,11 +294,11 @@ function Header({ active, onNavClick }) {
       {/* Mobile backdrop — independent fixed layer, dims the page behind the drawer */}
       <div
         onClick={() => setMobileOpen(false)}
-        className={`fixed inset-0 z-[60] h-screen w-screen bg-[#12141C]/60 lg:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[60] h-screen w-screen bg-[#12141C]/60 md:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       />
       {/* Mobile panel — independent fixed layer with a guaranteed opaque, full-height background */}
       <div
-        className={`fixed inset-y-0 right-0 z-[70] h-screen w-[80%] max-w-sm bg-white dark:bg-[#0A0C12] shadow-2xl lg:hidden overflow-y-auto transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-y-0 right-0 z-[70] h-screen w-[80%] max-w-sm bg-white dark:bg-[#0A0C12] shadow-2xl md:hidden overflow-y-auto transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="flex items-center justify-between h-20 px-6 border-b border-[#E7E5E1] dark:border-[#232A3D]">
           <span className="font-display font-bold text-[#12141C] dark:text-white">Menu</span>
