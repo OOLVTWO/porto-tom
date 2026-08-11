@@ -142,7 +142,7 @@ const TESTIMONIALS = [
     quote: "Fast, communicative, and honestly just easy to work with. He flagged issues before we even noticed them ourselves.",
     name: 'Michael Torres',
     title: 'CTO, Beacon Health',
-    img: 'https://images.pexels.com/photos/28441026/pexels-photo-28441026.jpeg?auto=compress&cs=tinysrgb&w=200',
+    img: 'https://images.pexels.com/photos/12437056/pexels-photo-12437056.jpeg?auto=compress&cs=tinysrgb&w=200',
     fb: 'https://picsum.photos/seed/michael-torres/200/200',
   },
   {
