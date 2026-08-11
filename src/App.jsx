@@ -217,12 +217,12 @@ function HireBadge({ onClick }) {
         <defs>
           <path id="circlePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
         </defs>
-        <text fill="#12141C" className="dark:fill-white" fontSize="7.4" letterSpacing="2.2">
+        <text fill="white" fontSize="7.4" letterSpacing="2.2">
           <textPath href="#circlePath" startOffset="0%">AVAILABLE FOR HIRE • AVAILABLE FOR HIRE •</textPath>
         </text>
       </svg>
       <span className="absolute inset-0 flex items-center justify-center">
-        <span className="h-12 w-12 rounded-full bg-[#FF5A36] flex items-center justify-center text-white">
+        <span className="h-12 w-12 rounded-full bg-[#12141C] ring-2 ring-white/30 flex items-center justify-center text-white">
           <i className="fa-solid fa-arrow-right -rotate-45 text-sm" aria-hidden="true"></i>
         </span>
       </span>
@@ -335,45 +335,48 @@ function Header({ active, onNavClick }) {
 /* --------------------------------- Hero ------------------------------------ */
 function Hero({ onNavClick }) {
   return (
-    <section id="home" className="scroll-mt-24 relative bg-white dark:bg-[#0A0C12] pt-36 pb-20 sm:pt-44 sm:pb-28">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 lg:gap-10 items-center">
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#FFF1EC] dark:bg-[#241610] px-4 py-1.5 font-mono text-xs text-[#FF5A36] mb-8">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A36] animate-pulse" /> available for work — 2026
-          </span>
-          <h1 className="font-display text-5xl sm:text-6xl font-bold text-[#12141C] dark:text-white leading-[1.05] mb-4">
-            Surya Adi Darmawan
-          </h1>
-          <p className="text-xl font-display font-semibold text-[#FF5A36] mb-6">Software Engineer</p>
-          <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-10 max-w-md">
-            I build fast, reliable software — from React front ends to the systems behind them —
-            currently working with startups across three timezones.
-          </p>
-          <div className="flex items-center gap-6 flex-wrap">
-            <button
-              onClick={() => onNavClick('portfolio')}
-              className="inline-flex items-center gap-2 bg-[#12141C] dark:bg-[#FF5A36] text-white px-6 py-3 rounded-full font-medium hover:opacity-90 transition-opacity"
-            >
-              View Work <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
-            </button>
-            <HireBadge onClick={() => onNavClick('contact')} />
-          </div>
-        </div>
+    <section id="home" className="scroll-mt-24 relative bg-white dark:bg-[#0A0C12] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="relative">
+          <div className="relative rounded-3xl bg-gradient-to-br from-[#FF7A57] via-[#FF5A36] to-[#E64A28] px-8 sm:px-12 lg:pr-[44%] py-12 sm:py-16 lg:py-20 overflow-hidden">
+            <div className="absolute -top-16 -left-16 w-56 h-56 rounded-full border border-white/15 pointer-events-none" />
+            <div className="absolute bottom-0 left-1/3 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none" />
 
-        <div className="relative max-w-sm mx-auto lg:mx-0 lg:justify-self-end">
-          <DotGrid className="-inset-8 hidden sm:block" />
-          <div className="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-[#FF5A36]/15 blur-2xl" />
-          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-xl shadow-black/5">
-            <SmartImg
-              src="/images/portrait.jpg"
-              fallback="https://picsum.photos/seed/surya-portrait/800/1000"
-              alt="Surya Adi Darmawan"
-              className="w-full aspect-[4/5] object-cover"
-            />
+            <div className="relative z-10 max-w-xl">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 font-mono text-xs text-white mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" /> available for work — 2026
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl font-bold text-white leading-[1.08] mb-3">
+                Building software people actually enjoy using
+              </h1>
+              <p className="text-lg font-display font-semibold text-white/90 mb-4">Surya Adi Darmawan — Software Engineer</p>
+              <p className="text-white/80 leading-relaxed mb-8 max-w-md">
+                I build fast, reliable software — from React front ends to the systems behind them —
+                currently working with startups across three timezones.
+              </p>
+              <div className="flex items-center gap-6 flex-wrap">
+                <button
+                  onClick={() => onNavClick('portfolio')}
+                  className="inline-flex items-center gap-2 bg-[#12141C] text-white px-6 py-3 rounded-full font-medium hover:bg-[#1C2030] transition-colors"
+                >
+                  View Work <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+                </button>
+                <HireBadge onClick={() => onNavClick('contact')} />
+              </div>
+            </div>
+
+            {/* Contained photo for mobile/tablet — no breakout, sits within the panel */}
+            <div className="relative z-10 mt-10 flex justify-center lg:hidden">
+              <img src="/images/portrait-cutout.png" alt="Surya Adi Darmawan" className="h-64 sm:h-80 w-auto object-contain drop-shadow-2xl" />
+            </div>
           </div>
-          <div className="absolute -bottom-6 -left-6 hidden sm:block rotate-[-3deg] rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] shadow-lg px-4 py-3 font-mono text-xs">
-            <span className="text-[#FF5A36]">status</span>: <span className="text-emerald-500">"available_for_work"</span>
-          </div>
+
+          {/* Breakout photo — large screens only, overlaps the card edge like the reference layout */}
+          <img
+            src="/images/portrait-cutout.png"
+            alt="Surya Adi Darmawan"
+            className="hidden lg:block absolute -top-8 right-6 xl:right-14 h-[112%] w-auto max-w-none object-contain z-20 drop-shadow-2xl"
+          />
         </div>
       </div>
     </section>
@@ -384,7 +387,7 @@ function Hero({ onNavClick }) {
 function About() {
   return (
     <section id="about" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-y border-[#E7E5E1] dark:border-[#1B2030]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-start">
+      <div className="max-w-4xl mx-auto px-6 lg:px-10">
         <Reveal>
           <Eyebrow>about-me</Eyebrow>
           <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">
@@ -401,7 +404,7 @@ function About() {
             until they're missing.
           </p>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
             {FACTS.map((f) => (
               <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
                 <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
@@ -429,17 +432,16 @@ function About() {
           </a>
         </Reveal>
 
-        <Reveal delay={100} className="relative">
-          <DotGrid className="-inset-8 hidden sm:block" />
+        <Reveal delay={100} className="relative mt-4">
           <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-sm">
             <SmartImg
               src="/images/speaking-2.jpg"
-              fallback="https://picsum.photos/seed/surya-speaking/900/1100"
+              fallback="https://picsum.photos/seed/surya-speaking/1600/900"
               alt="Surya Adi Darmawan speaking at a Primakara University tech event"
-              className="w-full aspect-[4/5] object-cover"
-              style={{ objectPosition: '38% 20%' }}
+              className="w-full aspect-video sm:aspect-[21/9] object-cover"
+              style={{ objectPosition: '50% 30%' }}
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 sm:p-6">
               <p className="text-white text-sm font-medium">Speaking at a Primakara University tech event</p>
             </div>
           </div>
