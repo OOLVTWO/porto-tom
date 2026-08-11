@@ -89,10 +89,10 @@ const PROJECTS = [
 ];
 
 const STATS = [
-  { label: 'Projects Completed', value: 120, suffix: '+', icon: 'fa-solid fa-diagram-project' },
-  { label: 'Months Building', value: 6, suffix: '', icon: 'fa-solid fa-calendar-check' },
-  { label: 'Happy Clients', value: 45, suffix: '', icon: 'fa-solid fa-people-group' },
-  { label: 'Client Satisfaction', value: 99, suffix: '%', icon: 'fa-solid fa-face-smile' },
+  { label: 'Projects Completed', value: 120, suffix: '+', icon: 'fa-solid fa-diagram-project', gradient: 'from-orange-400 to-rose-500' },
+  { label: 'Months Building', value: 6, suffix: '', icon: 'fa-solid fa-calendar-check', gradient: 'from-indigo-500 to-blue-600' },
+  { label: 'Happy Clients', value: 45, suffix: '', icon: 'fa-solid fa-people-group', gradient: 'from-emerald-500 to-teal-600' },
+  { label: 'Client Satisfaction', value: 99, suffix: '%', icon: 'fa-solid fa-face-smile', gradient: 'from-amber-400 to-orange-500' },
 ];
 
 const TESTIMONIALS = [
@@ -672,25 +672,23 @@ function StatItem({ stat }) {
   const [ref, inView] = useInView(0.4);
   const count = useCountUp(stat.value, inView);
   return (
-    <div ref={ref} className="text-center px-6 py-10 sm:py-12">
-      <div className="h-11 w-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4">
-        <i className={`${stat.icon} text-[#FF8C6B] text-lg`} aria-hidden="true"></i>
+    <div ref={ref} className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+      <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mx-auto mb-4`}>
+        <i className={`${stat.icon} text-white text-lg`} aria-hidden="true"></i>
       </div>
-      <div className="font-display text-4xl sm:text-5xl font-bold text-white mb-2">
+      <div className="font-display text-3xl sm:text-4xl font-bold text-[#12141C] dark:text-white mb-1">
         {count}{stat.suffix}
       </div>
-      <div className="font-mono text-xs text-white/60 uppercase tracking-wide">{stat.label}</div>
+      <div className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] uppercase tracking-wide">{stat.label}</div>
     </div>
   );
 }
 
 function Stats() {
   return (
-    <section className="py-16 sm:py-20 bg-[#12141C] dark:bg-[#05070B]">
-      <div className="max-w-6xl mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl border border-white/10 divide-x divide-y divide-white/10 md:divide-y-0">
-          {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
-        </div>
+    <section className="py-16 sm:py-20 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
       </div>
     </section>
   );
@@ -770,42 +768,27 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-y border-[#E7E5E1] dark:border-[#1B2030]">
-      <div className="max-w-5xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-5 rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] overflow-hidden">
-          <div className="lg:col-span-2 relative overflow-hidden bg-[#12141C] p-8 sm:p-10 flex flex-col justify-between">
-            <DotGrid className="inset-0 !opacity-[0.08]" />
-            <div className="relative">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 font-mono text-xs text-[#FF8C6B] mb-6">
-                <i className="fa-solid fa-terminal text-[10px]" aria-hidden="true"></i> $ lets-build --together
-              </span>
-              <h2 className="font-display text-3xl font-bold text-white mb-3">Let's build something great</h2>
-              <p className="text-white/60 leading-relaxed">Have a project in mind, or just want to talk through an idea? My inbox is open.</p>
+    <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12]">
+      <div className="max-w-2xl mx-auto px-6 lg:px-10 text-center mb-14">
+        <Eyebrow>lets-talk</Eyebrow>
+        <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-4">
+          Let's build something great
+        </h2>
+        <p className="text-[#5B6270] dark:text-[#8D95A8]">
+          Have a project in mind, or just want to talk through an idea? My inbox is open.
+        </p>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-6 lg:px-10">
+        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] p-6 sm:p-10">
+          {submitted ? (
+            <div className="flex flex-col items-center text-center py-6">
+              <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
+              <h3 className="font-display text-2xl font-bold text-[#12141C] dark:text-white mb-2">Message sent</h3>
+              <p className="text-[#5B6270] dark:text-[#8D95A8]">Thanks, {form.name.split(' ')[0] || 'friend'} — I'll get back to you within 24 hours.</p>
             </div>
-            <div className="relative mt-10 space-y-3">
-              <a href="mailto:suryaadidarmawan077@gmail.com" className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
-                <span className="h-8 w-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center"><Mail size={14} /></span>
-                suryaadidarmawan077@gmail.com
-              </a>
-              <a href="https://github.com/OOLVTWO" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
-                <span className="h-8 w-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center"><Github size={14} /></span>
-                github.com/OOLVTWO
-              </a>
-              <a href="https://www.linkedin.com/in/surya-adi-darmawan-aa09b8288?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
-                <span className="h-8 w-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center"><Linkedin size={14} /></span>
-                LinkedIn
-              </a>
-            </div>
-          </div>
-          <div className="lg:col-span-3 bg-white dark:bg-[#10131C] p-8 sm:p-10">
-            {submitted ? (
-              <div className="flex flex-col items-center text-center h-full justify-center py-10">
-                <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
-                <h3 className="font-display text-2xl font-bold text-[#12141C] dark:text-white mb-2">Message sent</h3>
-                <p className="text-[#5B6270] dark:text-[#8D95A8]">Thanks, {form.name.split(' ')[0] || 'friend'} — I'll get back to you within 24 hours.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-6">
+          ) : (
+            <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-6">
                 <div className="sm:col-span-1">
                   <label className="block text-sm font-medium text-[#12141C] dark:text-white mb-2">Name</label>
                   <div className="relative">
@@ -874,8 +857,32 @@ function Contact() {
                   </button>
                 </div>
               </form>
-            )}
-          </div>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+          <a
+            href="mailto:suryaadidarmawan077@gmail.com"
+            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
+          >
+            <Mail size={14} /> Email
+          </a>
+          <a
+            href="https://github.com/OOLVTWO"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
+          >
+            <Github size={14} /> GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/surya-adi-darmawan-aa09b8288?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
+          >
+            <Linkedin size={14} /> LinkedIn
+          </a>
         </div>
       </div>
     </section>
@@ -883,7 +890,7 @@ function Contact() {
 }
 
 /* ---------------------------------- Footer -------------------------------------- */
-function Footer({ onNavClick }) {
+function Footer() {
   const year = new Date().getFullYear();
   const socials = [
     { icon: Github, href: 'https://github.com/OOLVTWO', label: 'GitHub' },
@@ -892,57 +899,26 @@ function Footer({ onNavClick }) {
     { icon: Mail, href: 'mailto:suryaadidarmawan077@gmail.com', label: 'Email' },
   ];
   return (
-    <footer className="bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid sm:grid-cols-3 gap-10">
-        <div>
-          <span className="font-display font-bold text-lg text-[#12141C] dark:text-white">
-            Adi<span className="text-[#FF5A36]">.</span>Darmawan
-          </span>
-          <p className="text-sm text-[#5B6270] dark:text-[#8D95A8] mt-3 max-w-xs leading-relaxed">
-            Software engineer building fast, considered interfaces — one project at a time.
-          </p>
+    <footer className="bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030] py-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <span className="font-display font-bold text-[#12141C] dark:text-white">
+          Adi<span className="text-[#FF5A36]">.</span>Darmawan
+        </span>
+        <div className="flex items-center gap-3">
+          {socials.map(({ icon: Icon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              aria-label={label}
+              className="h-10 w-10 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
+            >
+              <Icon size={16} />
+            </a>
+          ))}
         </div>
-
-        <div>
-          <p className="font-mono text-xs uppercase tracking-wide text-[#5B6270] dark:text-[#8D95A8] mb-4">Navigate</p>
-          <ul className="space-y-2.5">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <button
-                  onClick={() => onNavClick && onNavClick(item.id)}
-                  className="text-sm text-[#12141C] dark:text-white hover:text-[#FF5A36] transition-colors"
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="font-mono text-xs uppercase tracking-wide text-[#5B6270] dark:text-[#8D95A8] mb-4">Connect</p>
-          <div className="flex items-center gap-3">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                aria-label={label}
-                className="h-10 w-10 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
-              >
-                <Icon size={16} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="border-t border-[#E7E5E1] dark:border-[#1B2030]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">© {year} Surya Adi Darmawan</p>
-          <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">Built with React &amp; Tailwind CSS</p>
-        </div>
+        <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">© {year} Surya Adi Darmawan</p>
       </div>
     </footer>
   );
@@ -1006,7 +982,7 @@ export default function App() {
           <Stats />
           <Testimonials />
           <Contact />
-          <Footer onNavClick={scrollToSection} />
+          <Footer />
         </div>
       </div>
     </ThemeContext.Provider>
