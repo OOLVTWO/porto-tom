@@ -707,8 +707,8 @@ function Testimonials() {
   return (
     <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-3">
             <Eyebrow>testimonials</Eyebrow>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">What clients say</h2>
             <div className="flex gap-1 mb-6">
@@ -732,8 +732,8 @@ function Testimonials() {
             </div>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/5] object-cover object-top" />
+          <div className="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50">
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-72 sm:h-96 lg:h-[420px] object-cover object-top" />
           </div>
         </div>
       </div>
