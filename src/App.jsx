@@ -100,22 +100,22 @@ const TESTIMONIALS = [
     quote: "Surya rebuilt our dashboard from scratch and cut load times in half. The handoff docs alone were better than most agencies' final deliverables.",
     name: 'Priya Anand',
     title: 'VP Product, Northwind',
-    img: 'https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=900',
-    fb: 'https://picsum.photos/seed/priya-anand/900/1100',
+    img: 'https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/priya-anand/200/200',
   },
   {
     quote: 'We came in with a rough sketch and left with a production React app our own engineers actually enjoyed extending.',
     name: 'Marcus Ude',
     title: 'CTO, Vertex Labs',
-    img: 'https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=900',
-    fb: 'https://picsum.photos/seed/marcus-ude/900/1100',
+    img: 'https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/marcus-ude/200/200',
   },
   {
     quote: 'Organic traffic doubled in four months. Surya treats SEO as part of the build, not an afterthought bolted on at the end.',
     name: 'Sofia Reyes',
     title: 'Founder, Halcyon',
-    img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=900',
-    fb: 'https://picsum.photos/seed/sofia-reyes/900/1100',
+    img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/sofia-reyes/200/200',
   },
 ];
 
@@ -695,46 +695,34 @@ function Stats() {
 
 /* ------------------------------- Testimonials ---------------------------------- */
 function Testimonials() {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % TESTIMONIALS.length), 6000);
-    return () => clearInterval(t);
-  }, []);
-  const prev = () => setIndex((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  const next = () => setIndex((i) => (i + 1) % TESTIMONIALS.length);
-  const t = TESTIMONIALS[index];
-
   return (
     <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
-          <div className="lg:col-span-3">
-            <Eyebrow>testimonials</Eyebrow>
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">What clients say</h2>
-            <div className="flex gap-1 mb-6">
-              {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-[#FF5A36] text-[#FF5A36]" />)}
-            </div>
-            <p className="text-lg sm:text-xl text-[#12141C] dark:text-white leading-relaxed mb-8">"{t.quote}"</p>
+        <Reveal className="max-w-2xl mb-12">
+          <Eyebrow>testimonials</Eyebrow>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4">What clients say</h2>
+        </Reveal>
 
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
-                <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1">{t.title}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <Reveal key={t.name} delay={i * 100} className="h-full">
+              <div className="h-full rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8 flex flex-col">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => <Star key={j} size={14} className="fill-[#FF5A36] text-[#FF5A36]" />)}
+                </div>
+                <p className="text-[#12141C] dark:text-white leading-relaxed mb-6 flex-1">"{t.quote}"</p>
+                <div className="flex items-center gap-3 pt-5 border-t border-[#E7E5E1] dark:border-[#232A3D]">
+                  <div className="h-11 w-11 rounded-full overflow-hidden shrink-0 ring-2 ring-[#F7F7F5] dark:ring-[#151926]">
+                    <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-[#12141C] dark:text-white">{t.name}</p>
+                    <p className="font-mono text-[11px] text-[#5B6270] dark:text-[#8D95A8]">{t.title}</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
-                  <ChevronLeft size={18} />
-                </button>
-                <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50 bg-[#F7F7F5] dark:bg-[#151926]">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-80 sm:h-[420px] lg:h-[420px] object-contain" />
-          </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
