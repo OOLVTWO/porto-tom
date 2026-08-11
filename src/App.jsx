@@ -967,7 +967,7 @@ function Footer() {
 
 /* ----------------------------------- App ----------------------------------------- */
 export default function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const [active, setActive] = useState('home');
   const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
 
