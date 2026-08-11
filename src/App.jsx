@@ -56,14 +56,14 @@ const ABOUT_PHOTOS = [
   {
     src: '/images/moment-beach.jpg',
     fallback: 'https://picsum.photos/seed/surya-beach/1600/900',
-    position: 'center 40%',
+    position: 'center 45%',
     title: 'Weekend reset with the crew',
     caption: 'Snacks, sand, and no laptops in sight — the other side of the schedule.',
   },
   {
     src: '/images/moment-ceremony.jpg',
     fallback: 'https://picsum.photos/seed/surya-ceremony/1600/900',
-    position: 'center 30%',
+    position: 'center 15%',
     title: 'Dressed up for a Bali ceremony',
     caption: 'Traditional attire for a temple day in Bali, together with the crew.',
   },
