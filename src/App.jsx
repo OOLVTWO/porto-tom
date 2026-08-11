@@ -100,22 +100,22 @@ const TESTIMONIALS = [
     quote: "Surya rebuilt our dashboard from scratch and cut load times in half. The handoff docs alone were better than most agencies' final deliverables.",
     name: 'Priya Anand',
     title: 'VP Product, Northwind',
-    img: 'https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=400',
-    fb: 'https://picsum.photos/seed/priya-anand/200/200',
+    img: 'https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=900',
+    fb: 'https://picsum.photos/seed/priya-anand/900/1100',
   },
   {
     quote: 'We came in with a rough sketch and left with a production React app our own engineers actually enjoyed extending.',
     name: 'Marcus Ude',
     title: 'CTO, Vertex Labs',
-    img: 'https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=400',
-    fb: 'https://picsum.photos/seed/marcus-ude/200/200',
+    img: 'https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=900',
+    fb: 'https://picsum.photos/seed/marcus-ude/900/1100',
   },
   {
     quote: 'Organic traffic doubled in four months. Surya treats SEO as part of the build, not an afterthought bolted on at the end.',
     name: 'Sofia Reyes',
     title: 'Founder, Halcyon',
-    img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=400',
-    fb: 'https://picsum.photos/seed/sofia-reyes/200/200',
+    img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=900',
+    fb: 'https://picsum.photos/seed/sofia-reyes/900/1100',
   },
 ];
 
@@ -505,7 +505,7 @@ function TechMarquee() {
 /* -------------------------------- Expertise ----------------------------------- */
 function Expertise() {
   return (
-    <section id="expertise" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12]">
+    <section id="expertise" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <Reveal className="max-w-2xl mb-16">
           <Eyebrow>what-i-do</Eyebrow>
@@ -621,7 +621,7 @@ function ProjectMock({ layout, gradient }) {
 /* -------------------------------- Gallery ------------------------------------- */
 function Gallery({ onNavClick }) {
   return (
-    <section id="portfolio" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-y border-[#E7E5E1] dark:border-[#1B2030]">
+    <section id="portfolio" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <Reveal className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-16 gap-4">
           <div>
@@ -686,7 +686,7 @@ function StatItem({ stat }) {
 
 function Stats() {
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
+    <section className="py-16 sm:py-20 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
       </div>
@@ -706,40 +706,42 @@ function Testimonials() {
   const t = TESTIMONIALS[index];
 
   return (
-    <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12]">
-      <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
-        <Eyebrow>testimonials</Eyebrow>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-14">What clients say</h2>
-
-        <div className="relative rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] px-8 py-12 sm:px-14">
-          <div className="h-16 w-16 rounded-full overflow-hidden ring-4 ring-[#FF5A36]/10 mx-auto mb-6">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-full object-cover" />
-          </div>
-          <i className="fa-solid fa-quote-left text-2xl text-[#FF5A36]/30 mb-4 inline-block" aria-hidden="true"></i>
-          <div className="flex justify-center gap-1 mb-6">
-            {[...Array(5)].map((_, i) => <Star key={i} size={16} className="fill-[#FF5A36] text-[#FF5A36]" />)}
-          </div>
-          <p className="font-display text-xl sm:text-2xl text-[#12141C] dark:text-white leading-relaxed mb-6">"{t.quote}"</p>
-          <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
-          <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1">{t.title}</p>
-
-          <div className="flex items-center justify-center gap-4 mt-10">
-            <button onClick={prev} aria-label="Previous testimonial" className="h-10 w-10 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-white dark:hover:bg-[#151926]">
-              <ChevronLeft size={18} />
-            </button>
-            <div className="flex gap-2">
-              {TESTIMONIALS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setIndex(i)}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                  className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-[#FF5A36]' : 'w-2 bg-[#E7E5E1] dark:bg-[#232A3D]'}`}
-                />
-              ))}
+    <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <Eyebrow>testimonials</Eyebrow>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">What clients say</h2>
+            <div className="flex gap-1 mb-6">
+              {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-[#FF5A36] text-[#FF5A36]" />)}
             </div>
-            <button onClick={next} aria-label="Next testimonial" className="h-10 w-10 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-white dark:hover:bg-[#151926]">
-              <ChevronRight size={18} />
-            </button>
+            <p className="font-display text-xl sm:text-2xl text-[#12141C] dark:text-white leading-relaxed mb-6">"{t.quote}"</p>
+            <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
+            <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1 mb-10">{t.title}</p>
+
+            <div className="flex items-center gap-3">
+              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-[#F7F7F5] dark:hover:bg-[#151926] transition-colors">
+                <ChevronLeft size={18} />
+              </button>
+              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-[#F7F7F5] dark:hover:bg-[#151926] transition-colors">
+                <ChevronRight size={18} />
+              </button>
+              <div className="flex gap-2 ml-2">
+                {TESTIMONIALS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    aria-label={`Go to testimonial ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${i === index ? 'w-6 bg-[#FF5A36]' : 'w-1.5 bg-[#E7E5E1] dark:bg-[#232A3D]'}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D]">
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/3] sm:aspect-[4/5] object-cover" />
+            <i className="fa-solid fa-quote-right absolute top-5 right-5 text-2xl text-white/80" aria-hidden="true"></i>
           </div>
         </div>
       </div>
@@ -768,19 +770,50 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12]">
-      <div className="max-w-2xl mx-auto px-6 lg:px-10 text-center mb-14">
-        <Eyebrow>lets-talk</Eyebrow>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-4">
-          Let's build something great
-        </h2>
-        <p className="text-[#5B6270] dark:text-[#8D95A8]">
-          Have a project in mind, or just want to talk through an idea? My inbox is open.
-        </p>
-      </div>
+    <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <div>
+            <Eyebrow>lets-talk</Eyebrow>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-4">
+              Let's build something great
+            </h2>
+            <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-10 max-w-md">
+              Have a project in mind, or just want to talk through an idea? My inbox is open.
+            </p>
 
-      <div className="max-w-2xl mx-auto px-6 lg:px-10">
-        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] p-6 sm:p-10">
+            <div className="space-y-5">
+              <div className="flex items-start gap-4">
+                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
+                  <i className="fa-solid fa-bolt text-[#FF5A36]" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">Fast response</p>
+                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Usually replies within 24 hours</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
+                  <i className="fa-solid fa-handshake text-[#FF5A36]" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">Open to freelance</p>
+                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Available for new projects right now</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
+                  <i className="fa-solid fa-lock text-[#FF5A36]" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">No spam, ever</p>
+                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Your info is only used to reply to you</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8">
           {submitted ? (
             <div className="flex flex-col items-center text-center py-6">
               <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
@@ -858,31 +891,7 @@ function Contact() {
                 </div>
               </form>
           )}
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-          <a
-            href="mailto:suryaadidarmawan077@gmail.com"
-            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
-          >
-            <Mail size={14} /> Email
-          </a>
-          <a
-            href="https://github.com/OOLVTWO"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
-          >
-            <Github size={14} /> GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/surya-adi-darmawan-aa09b8288?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] px-4 py-2 text-sm text-[#5B6270] dark:text-[#8D95A8] hover:text-[#FF5A36] hover:border-[#FF5A36] transition-colors"
-          >
-            <Linkedin size={14} /> LinkedIn
-          </a>
+          </div>
         </div>
       </div>
     </section>
