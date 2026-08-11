@@ -1,6 +1,6 @@
-# Portfolio Landing Page
+# Surya Adi Darmawan — Portfolio
 
-A single-page portfolio built with React, Tailwind CSS, and Lucide icons.
+A single-page portfolio built with React, Vite, Tailwind CSS, and Lucide icons.
 
 ## Features
 - Dark/light theme toggle (Tailwind `dark:` variant)
@@ -9,9 +9,24 @@ A single-page portfolio built with React, Tailwind CSS, and Lucide icons.
 - Animated stat counters and a testimonial carousel
 - Fully responsive, mobile-first layout
 
-## Usage
-Drop `portfolio.jsx` into a React project that has Tailwind CSS and `lucide-react` installed, then render the default-exported `App` component.
+## Local development
 
 ```bash
-npm install lucide-react
+npm install
+npm run dev
 ```
+
+## Build
+
+```bash
+npm run build
+```
+
+Outputs a static site to `dist/`.
+
+## Deploy on Vercel
+This is a standard Vite project — Vercel auto-detects it, no config needed:
+1. Import the repo in Vercel.
+2. Framework preset: **Vite**.
+3. Build command: `npm run build`, output directory: `dist` (both auto-filled).
+4. Make sure the project's **Production Branch** is set to `main`.
