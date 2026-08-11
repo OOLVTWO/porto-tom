@@ -192,15 +192,6 @@ function Eyebrow({ children }) {
   );
 }
 
-function DotGrid({ className = '' }) {
-  return (
-    <div
-      className={`pointer-events-none absolute -z-10 opacity-[0.35] dark:opacity-[0.15] ${className}`}
-      style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '18px 18px', color: '#9C9990' }}
-    />
-  );
-}
-
 function HireBadge({ onClick }) {
   return (
     <button
@@ -674,16 +665,18 @@ function StatItem({ stat }) {
   const [ref, inView] = useInView(0.4);
   const count = useCountUp(stat.value, inView);
   return (
-    <div ref={ref} className="flex items-center gap-4 p-6 sm:p-8">
-      <div className={`h-14 w-14 shrink-0 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center`}>
-        <i className={`${stat.icon} text-white text-xl`} aria-hidden="true"></i>
-      </div>
-      <div>
-        <div className="font-display text-2xl sm:text-3xl font-bold text-[#12141C] dark:text-white leading-none mb-1.5">
-          {count}{stat.suffix}
+    <div ref={ref} className="group relative overflow-hidden rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-5 sm:p-6 hover:border-[#FF5A36]/40 hover:shadow-lg transition-all duration-300">
+      <div className="flex items-start justify-between mb-6">
+        <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${stat.gradient} flex items-center justify-center`}>
+          <i className={`${stat.icon} text-white text-sm`} aria-hidden="true"></i>
         </div>
-        <div className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] uppercase tracking-wide">{stat.label}</div>
+        <i className="fa-solid fa-arrow-trend-up text-emerald-500 text-sm" aria-hidden="true"></i>
       </div>
+      <div className="font-display text-3xl sm:text-4xl font-bold text-[#12141C] dark:text-white leading-none mb-2">
+        {count}{stat.suffix}
+      </div>
+      <div className="font-mono text-[11px] text-[#5B6270] dark:text-[#8D95A8] uppercase tracking-wide">{stat.label}</div>
+      <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500`} />
     </div>
   );
 }
@@ -692,7 +685,7 @@ function Stats() {
   return (
     <section className="py-16 sm:py-20 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y divide-[#E7E5E1] dark:divide-[#232A3D] sm:divide-x sm:divide-y lg:divide-y-0">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
         </div>
       </div>
@@ -722,21 +715,25 @@ function Testimonials() {
               {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-[#FF5A36] text-[#FF5A36]" />)}
             </div>
             <p className="text-lg sm:text-xl text-[#12141C] dark:text-white leading-relaxed mb-8">"{t.quote}"</p>
-            <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
-            <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1 mb-8">{t.title}</p>
 
-            <div className="flex items-center gap-3">
-              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
-                <ChevronLeft size={18} />
-              </button>
-              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
-                <ChevronRight size={18} />
-              </button>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
+                <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1">{t.title}</p>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+                  <ChevronLeft size={18} />
+                </button>
+                <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
 
           <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-72 sm:h-96 lg:h-auto lg:aspect-[4/5] object-cover object-top" />
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/5] object-cover object-top" />
           </div>
         </div>
       </div>
@@ -767,109 +764,103 @@ function Contact() {
   return (
     <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FF7A57] via-[#FF5A36] to-[#E64A28] p-6 sm:p-10 lg:p-14">
-          <DotGrid className="inset-0 !opacity-[0.12]" />
-          <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-10 w-64 h-64 rounded-full border border-white/10 pointer-events-none" />
+        <Reveal className="max-w-2xl mb-12">
+          <Eyebrow>lets-talk</Eyebrow>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-4">
+            Let's build something great
+          </h2>
+          <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed">
+            Have a project in mind, or just want to talk through an idea? My inbox is open.
+          </p>
+        </Reveal>
 
-          <div className="relative grid lg:grid-cols-5 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-2">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-1.5 font-mono text-xs text-white mb-6">
-                <span className="text-white/60">//</span> lets-talk
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
-                Let's build something great
-              </h2>
-              <p className="text-white/75 leading-relaxed mb-10 max-w-md">
-                Have a project in mind, or just want to talk through an idea? My inbox is open.
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] overflow-hidden lg:sticky lg:top-28">
+            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#151926]">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+              <span className="ml-3 font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">message.json</span>
+              <span className={`ml-auto h-1.5 w-1.5 rounded-full ${submitted ? 'bg-emerald-500' : 'bg-[#FF5A36] animate-pulse'}`} />
+            </div>
+            <div className="p-6 sm:p-8 font-mono text-[13px] sm:text-sm leading-relaxed">
+              <p className="text-[#5B6270] dark:text-[#8D95A8]">{'{'}</p>
+              <p className="pl-4">
+                <span className="text-[#FF5A36]">"from"</span>:{' '}
+                <span className={form.name ? 'text-[#12141C] dark:text-[#F4F3EF]' : 'text-[#9CA3AF] italic'}>"{form.name || 'waiting for input...'}"</span>,
               </p>
-
-              <div className="space-y-5">
-                <div className="flex items-start gap-4">
-                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
-                    <i className="fa-solid fa-bolt text-white" aria-hidden="true"></i>
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white">Fast response</p>
-                    <p className="text-sm text-white/65">Usually replies within 24 hours</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
-                    <i className="fa-solid fa-handshake text-white" aria-hidden="true"></i>
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white">Open to freelance</p>
-                    <p className="text-sm text-white/65">Available for new projects right now</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
-                    <i className="fa-solid fa-lock text-white" aria-hidden="true"></i>
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white">No spam, ever</p>
-                    <p className="text-sm text-white/65">Your info is only used to reply to you</p>
-                  </div>
-                </div>
+              <p className="pl-4">
+                <span className="text-[#FF5A36]">"email"</span>:{' '}
+                <span className={form.email ? 'text-[#12141C] dark:text-[#F4F3EF]' : 'text-[#9CA3AF] italic'}>"{form.email || 'waiting for input...'}"</span>,
+              </p>
+              <p className="pl-4">
+                <span className="text-[#FF5A36]">"message"</span>:{' '}
+                <span className={form.message ? 'text-[#12141C] dark:text-[#F4F3EF]' : 'text-[#9CA3AF] italic'}>"{form.message || 'waiting for input...'}"</span>,
+              </p>
+              <p className="pl-4">
+                <span className="text-[#FF5A36]">"status"</span>: <span className={submitted ? 'text-emerald-500' : 'text-[#9CA3AF]'}>"{submitted ? 'sent' : 'draft'}"</span>
+              </p>
+              <p className="text-[#5B6270] dark:text-[#8D95A8]">{'}'}</p>
+            </div>
+            <div className="border-t border-[#E7E5E1] dark:border-[#232A3D] px-6 sm:px-8 py-5 space-y-3">
+              <div className="flex items-center gap-3 text-sm text-[#5B6270] dark:text-[#8D95A8]">
+                <i className="fa-solid fa-bolt text-[#FF5A36] w-4" aria-hidden="true"></i> Usually replies within 24 hours
+              </div>
+              <div className="flex items-center gap-3 text-sm text-[#5B6270] dark:text-[#8D95A8]">
+                <i className="fa-solid fa-handshake text-[#FF5A36] w-4" aria-hidden="true"></i> Open to freelance right now
+              </div>
+              <div className="flex items-center gap-3 text-sm text-[#5B6270] dark:text-[#8D95A8]">
+                <i className="fa-solid fa-lock text-[#FF5A36] w-4" aria-hidden="true"></i> No spam — ever
               </div>
             </div>
+          </div>
 
-            <div className="lg:col-span-3 rounded-2xl bg-white dark:bg-[#10131C] p-6 sm:p-8 shadow-2xl shadow-black/20">
-          {submitted ? (
-            <div className="flex flex-col items-center text-center py-6">
-              <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
-              <h3 className="font-display text-2xl font-bold text-[#12141C] dark:text-white mb-2">Message sent</h3>
-              <p className="text-[#5B6270] dark:text-[#8D95A8]">Thanks, {form.name.split(' ')[0] || 'friend'} — I'll get back to you within 24 hours.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-6">
-                <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#12141C] dark:text-white mb-2">Name</label>
-                  <div className="relative">
-                    <i className="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
-                    <input
-                      required
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Your name"
-                      className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent pl-11 pr-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36]"
-                    />
-                  </div>
+          <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8">
+            {submitted ? (
+              <div className="flex flex-col items-center text-center py-10">
+                <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
+                <h3 className="font-display text-2xl font-bold text-[#12141C] dark:text-white mb-2">Message sent</h3>
+                <p className="text-[#5B6270] dark:text-[#8D95A8]">Thanks, {form.name.split(' ')[0] || 'friend'} — I'll get back to you within 24 hours.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="block font-mono text-xs text-[#FF5A36] mb-2">$ name</label>
+                  <input
+                    required
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent px-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36]"
+                  />
                 </div>
-                <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#12141C] dark:text-white mb-2">Email</label>
-                  <div className="relative">
-                    <i className="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
-                    <input
-                      required
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      type="email"
-                      placeholder="you@example.com"
-                      className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent pl-11 pr-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36]"
-                    />
-                  </div>
+                <div>
+                  <label className="block font-mono text-xs text-[#FF5A36] mb-2">$ email</label>
+                  <input
+                    required
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    type="email"
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent px-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36]"
+                  />
                 </div>
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-[#12141C] dark:text-white mb-2">Message</label>
-                  <div className="relative">
-                    <i className="fa-solid fa-message absolute left-4 top-4 text-[#9CA3AF] text-sm" aria-hidden="true"></i>
-                    <textarea
-                      required
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      rows={5}
-                      placeholder="Tell me about your project..."
-                      className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent pl-11 pr-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36] resize-none"
-                    />
-                  </div>
+                <div>
+                  <label className="block font-mono text-xs text-[#FF5A36] mb-2">$ message</label>
+                  <textarea
+                    required
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    className="w-full rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-transparent px-4 py-3 text-[#12141C] dark:text-white placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FF5A36] resize-none"
+                  />
                 </div>
-                <div className="sm:col-span-2 flex items-start gap-3">
+                <div className="flex items-start gap-3">
                   <input
                     required
                     name="agree"
@@ -883,17 +874,14 @@ function Contact() {
                     I agree to be contacted regarding this inquiry.
                   </label>
                 </div>
-                <div className="sm:col-span-2">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 bg-[#FF5A36] text-white px-7 py-3 rounded-full font-medium hover:bg-[#E64A28] transition-colors"
-                  >
-                    Get in Touch <Send size={16} />
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 bg-[#FF5A36] text-white px-7 py-3 rounded-full font-medium hover:bg-[#E64A28] transition-colors"
+                >
+                  Get in Touch <Send size={16} />
+                </button>
               </form>
-          )}
-            </div>
+            )}
           </div>
         </div>
       </div>
