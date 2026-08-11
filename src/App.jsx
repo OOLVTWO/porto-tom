@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext, createContext } from 'react';
 import {
   Sun, Moon, Menu, X, ChevronLeft, ChevronRight,
-  Github, Linkedin, Twitter, Dribbble, Mail, Download, Send, CheckCircle2, Star,
+  Github, Linkedin, Twitter, Dribbble, Mail, Send, CheckCircle2, Star,
 } from 'lucide-react';
 
 /* ----------------------------- Theme Context ----------------------------- */
@@ -32,9 +32,9 @@ const TECH_STACK = [
 ];
 
 const FACTS = [
-  { label: 'Location', value: 'Jakarta, Indonesia', icon: 'fa-solid fa-location-dot' },
+  { label: 'Location', value: 'Bali, Indonesia', icon: 'fa-solid fa-location-dot' },
   { label: 'Focus', value: 'Frontend + Systems', icon: 'fa-solid fa-layer-group' },
-  { label: 'Experience', value: '8+ years', icon: 'fa-solid fa-clock' },
+  { label: 'Experience', value: '6 months', icon: 'fa-solid fa-clock' },
   { label: 'Availability', value: 'Open to freelance', icon: 'fa-solid fa-circle-check' },
 ];
 
@@ -42,14 +42,14 @@ const ABOUT_PHOTOS = [
   {
     src: '/images/speaking-1.jpg',
     fallback: 'https://picsum.photos/seed/surya-about-1/1600/900',
-    position: '50% 20%',
+    position: '48% 35%',
     title: 'Answering questions on stage',
     caption: 'Taking questions from the audience during a Q&A session at a Primakara University tech event.',
   },
   {
     src: '/images/speaking-2.jpg',
     fallback: 'https://picsum.photos/seed/surya-about-2/1600/900',
-    position: '38% 20%',
+    position: '52% 55%',
     title: 'Hosting a campus tech talk',
     caption: 'On stage as part of the organizing committee, walking the audience through the session.',
   },
@@ -80,41 +80,17 @@ const EXPERTISE = [
 ];
 
 const PROJECTS = [
-  {
-    title: 'Northwind Dashboard', tag: 'SaaS Dashboard', domain: 'northwind.app',
-    img: 'https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/northwind-dash/800/600',
-  },
-  {
-    title: 'Vertex Banking App', tag: 'Mobile App', domain: 'vertexbank.io',
-    img: 'https://images.pexels.com/photos/6406691/pexels-photo-6406691.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/vertex-bank/800/600',
-  },
-  {
-    title: 'Orbital Analytics', tag: 'Data Platform', domain: 'orbital.dev',
-    img: 'https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/orbital-data/800/600',
-  },
-  {
-    title: 'Lumen Commerce', tag: 'E-Commerce', domain: 'shoplumen.com',
-    img: 'https://images.pexels.com/photos/5585793/pexels-photo-5585793.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/lumen-shop/800/600',
-  },
-  {
-    title: 'Atlas Booking', tag: 'Web App', domain: 'atlasbook.app',
-    img: 'https://images.pexels.com/photos/33136468/pexels-photo-33136468.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/atlas-book/800/600',
-  },
-  {
-    title: 'Halcyon Marketing', tag: 'Marketing Site', domain: 'halcyon.co',
-    img: 'https://images.pexels.com/photos/6483621/pexels-photo-6483621.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fb: 'https://picsum.photos/seed/halcyon-mkt/800/600',
-  },
+  { title: 'Northwind Dashboard', tag: 'SaaS Dashboard', domain: 'northwind.app', layout: 'dashboard', icon: 'fa-solid fa-gauge-high', gradient: 'from-orange-400 to-rose-500' },
+  { title: 'Vertex Banking App', tag: 'Mobile App', domain: 'vertexbank.io', layout: 'mobile', icon: 'fa-solid fa-mobile-screen-button', gradient: 'from-indigo-500 to-blue-600' },
+  { title: 'Orbital Analytics', tag: 'Data Platform', domain: 'orbital.dev', layout: 'chart', icon: 'fa-solid fa-chart-line', gradient: 'from-emerald-500 to-teal-600' },
+  { title: 'Lumen Commerce', tag: 'E-Commerce', domain: 'shoplumen.com', layout: 'grid', icon: 'fa-solid fa-cart-shopping', gradient: 'from-amber-400 to-orange-500' },
+  { title: 'Atlas Booking', tag: 'Web App', domain: 'atlasbook.app', layout: 'calendar', icon: 'fa-solid fa-calendar-check', gradient: 'from-sky-500 to-cyan-600' },
+  { title: 'Halcyon Marketing', tag: 'Marketing Site', domain: 'halcyon.co', layout: 'hero', icon: 'fa-solid fa-bullhorn', gradient: 'from-fuchsia-500 to-purple-600' },
 ];
 
 const STATS = [
   { label: 'Projects Completed', value: 120, suffix: '+', icon: 'fa-solid fa-diagram-project' },
-  { label: 'Years Experience', value: 8, suffix: '+', icon: 'fa-solid fa-calendar-check' },
+  { label: 'Months Building', value: 6, suffix: '', icon: 'fa-solid fa-calendar-check' },
   { label: 'Happy Clients', value: 45, suffix: '', icon: 'fa-solid fa-people-group' },
   { label: 'Client Satisfaction', value: 99, suffix: '%', icon: 'fa-solid fa-face-smile' },
 ];
@@ -358,20 +334,21 @@ function Header({ active, onNavClick }) {
 /* --------------------------------- Hero ------------------------------------ */
 function Hero({ onNavClick }) {
   return (
-    <section id="home" className="scroll-mt-24 relative min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0">
+    <section id="home" className="scroll-mt-24 relative bg-[#0A0C12] lg:min-h-screen lg:flex lg:items-center overflow-hidden">
+      {/* Full-bleed background photo — desktop only, where there's room for text without overlap */}
+      <div className="hidden lg:block absolute inset-0">
         <SmartImg
           src="/images/hero-bg.jpg"
           fallback="https://picsum.photos/seed/surya-hero/1600/1067"
           alt="Surya Adi Darmawan speaking at a Primakara University tech event"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '68% 30%' }}
+          style={{ objectPosition: '75% 30%' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/75 to-[#0A0C12]/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/80 to-[#0A0C12]/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/70 via-transparent to-[#0A0C12]/40" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-20 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-24 pb-14 lg:py-16">
         <div className="max-w-xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/10 px-4 py-1.5 font-mono text-xs text-white mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A36] animate-pulse" /> available for work — 2026
@@ -394,6 +371,17 @@ function Hero({ onNavClick }) {
             <HireBadge onClick={() => onNavClick('contact')} />
           </div>
         </div>
+
+        {/* Contained photo — mobile/tablet only, sits below the text so nothing overlaps */}
+        <div className="lg:hidden mt-10 rounded-2xl overflow-hidden border border-white/10">
+          <SmartImg
+            src="/images/hero-bg.jpg"
+            fallback="https://picsum.photos/seed/surya-hero/1600/1067"
+            alt="Surya Adi Darmawan speaking at a Primakara University tech event"
+            className="w-full aspect-[4/3] sm:aspect-video object-cover"
+            style={{ objectPosition: '60% 25%' }}
+          />
+        </div>
       </div>
     </section>
   );
@@ -407,20 +395,20 @@ function About() {
         <Reveal>
           <Eyebrow>about-me</Eyebrow>
           <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">
-            Eight years of turning specs into shipped software
+            Six months in, and already shipping real software
           </h2>
           <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-4">
-            I'm a software engineer working across the front end and the systems behind it, based between
-            Jakarta and remote client offices. I care about interfaces that feel considered and the code
-            underneath that keeps them fast — from component architecture to the API it talks to.
+            I'm a software engineer working across the front end and the systems behind it, based in
+            Bali, Indonesia. I care about interfaces that feel considered and the code underneath that
+            keeps them fast — from component architecture to the API it talks to.
           </p>
           <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-8">
-            Recent projects span fintech dashboards, booking platforms, and marketing sites for teams who
-            needed both a sharper look and a faster load time. I care most about the details nobody notices
+            I'm early in my career, but I've already worked across dashboards, booking flows, and marketing
+            sites — learning fast and shipping along the way. I care most about the details nobody notices
             until they're missing.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {FACTS.map((f) => (
               <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
                 <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
@@ -431,14 +419,6 @@ function About() {
               </div>
             ))}
           </div>
-
-          <a
-            href="#"
-            onClick={(e) => e.preventDefault()}
-            className="inline-flex items-center gap-2 bg-[#FF5A36] text-white px-6 py-3 rounded-full font-medium hover:bg-[#E64A28] transition-colors"
-          >
-            <Download size={16} /> Download Résumé
-          </a>
         </Reveal>
 
         <Reveal delay={100} className="mt-10">
@@ -457,43 +437,56 @@ function PhotoCarousel() {
   const next = () => setIndex((i) => (i + 1) % ABOUT_PHOTOS.length);
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-sm group">
-      <SmartImg
-        src={slide.src}
-        fallback={slide.fallback}
-        alt={slide.title}
-        className="w-full aspect-video sm:aspect-[21/9] object-cover"
-        style={{ objectPosition: slide.position }}
-      />
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5 sm:p-6">
-        <p className="text-white font-display font-semibold">{slide.title}</p>
-        <p className="text-white/70 text-sm mt-0.5 max-w-lg">{slide.caption}</p>
+    <div className="rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] shadow-sm">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#151926]">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+        </div>
+        <span className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">moments</span>
+        <span className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">{index + 1}/{ABOUT_PHOTOS.length}</span>
       </div>
 
-      <button
-        onClick={prev}
-        aria-label="Previous photo"
-        className="absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
-      >
-        <ChevronLeft size={18} />
-      </button>
-      <button
-        onClick={next}
-        aria-label="Next photo"
-        className="absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
-      >
-        <ChevronRight size={18} />
-      </button>
+      <div className="relative">
+        <SmartImg
+          src={slide.src}
+          fallback={slide.fallback}
+          alt={slide.title}
+          className="w-full aspect-[16/10] object-cover"
+          style={{ objectPosition: slide.position }}
+        />
+        <button
+          onClick={prev}
+          aria-label="Previous photo"
+          className="absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next photo"
+          className="absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
 
-      <div className="absolute top-4 right-4 flex gap-1.5">
-        {ABOUT_PHOTOS.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            aria-label={`Go to photo ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${i === index ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`}
-          />
-        ))}
+      <div className="px-5 py-4 sm:px-6 sm:py-5 flex items-start justify-between gap-4">
+        <div>
+          <p className="font-display font-semibold text-[#12141C] dark:text-white">{slide.title}</p>
+          <p className="text-sm text-[#5B6270] dark:text-[#8D95A8] mt-1">{slide.caption}</p>
+        </div>
+        <div className="flex gap-1.5 pt-1.5 shrink-0">
+          {ABOUT_PHOTOS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to photo ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === index ? 'w-5 bg-[#FF5A36]' : 'w-1.5 bg-[#E7E5E1] dark:bg-[#232A3D]'}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -558,6 +551,92 @@ function Expertise() {
   );
 }
 
+/* ------------------------------ Project Mock UI ------------------------------- */
+function ProjectMock({ layout, gradient }) {
+  const bar = (w) => <div className={`h-2 rounded-full bg-gradient-to-r ${gradient} opacity-70`} style={{ width: w }} />;
+  const block = (opacity) => <div className={`rounded-lg bg-gradient-to-br ${gradient}`} style={{ opacity }} />;
+
+  if (layout === 'dashboard') {
+    return (
+      <div className="flex h-full">
+        <div className={`w-9 shrink-0 bg-gradient-to-b ${gradient}`} />
+        <div className="flex-1 p-3 space-y-2.5">
+          {bar('55%')}
+          <div className="grid grid-cols-3 gap-1.5">
+            <div className="h-8 rounded-md" style={{ background: 'currentColor', opacity: 0.06 }} />
+            <div className="h-8 rounded-md" style={{ background: 'currentColor', opacity: 0.06 }} />
+            <div className="h-8 rounded-md" style={{ background: 'currentColor', opacity: 0.06 }} />
+          </div>
+          <div className="h-16 rounded-lg flex items-end gap-1 p-2" style={{ background: 'currentColor', opacity: 0.06 }}>
+            {[40, 65, 50, 80, 55, 70, 45].map((h, i) => (
+              <div key={i} className={`flex-1 rounded-sm bg-gradient-to-t ${gradient}`} style={{ height: `${h}%`, opacity: 0.8 }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (layout === 'mobile') {
+    return (
+      <div className="flex items-center justify-center h-full py-3">
+        <div className="w-24 h-full max-h-36 rounded-xl border-2 border-white/30 bg-white/5 p-2 flex flex-col gap-1.5">
+          <div className="h-3 w-3 rounded-full self-center" style={{ background: 'currentColor', opacity: 0.15 }} />
+          {block(0.9)}
+          <div className="flex-1 space-y-1 mt-1">
+            <div className="h-2 rounded" style={{ background: 'currentColor', opacity: 0.1 }} />
+            <div className="h-2 rounded" style={{ background: 'currentColor', opacity: 0.1 }} />
+            <div className="h-2 w-2/3 rounded" style={{ background: 'currentColor', opacity: 0.1 }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (layout === 'chart') {
+    return (
+      <div className="p-4 h-full flex flex-col justify-end">
+        {bar('40%')}
+        <div className="flex items-end gap-1.5 h-20 mt-3">
+          {[30, 50, 35, 70, 45, 90, 60, 75].map((h, i) => (
+            <div key={i} className={`flex-1 rounded-t-sm bg-gradient-to-t ${gradient}`} style={{ height: `${h}%`, opacity: 0.75 }} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (layout === 'grid') {
+    return (
+      <div className="p-3 h-full grid grid-cols-3 gap-1.5 content-center">
+        {[0.85, 0.6, 0.4, 0.5, 0.9, 0.65].map((o, i) => (
+          <div key={i} className={`aspect-square rounded-md bg-gradient-to-br ${gradient}`} style={{ opacity: o }} />
+        ))}
+      </div>
+    );
+  }
+  if (layout === 'calendar') {
+    return (
+      <div className="p-3 h-full flex flex-col justify-center">
+        <div className="grid grid-cols-7 gap-1">
+          {Array.from({ length: 21 }).map((_, i) => (
+            <div
+              key={i}
+              className={[3, 9, 14].includes(i) ? `rounded-sm bg-gradient-to-br ${gradient} aspect-square` : 'rounded-sm aspect-square'}
+              style={[3, 9, 14].includes(i) ? { opacity: 0.85 } : { background: 'currentColor', opacity: 0.06 }}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  // hero
+  return (
+    <div className="p-4 h-full flex flex-col justify-center gap-2.5">
+      {bar('70%')}
+      <div className="h-2 rounded-full w-1/2" style={{ background: 'currentColor', opacity: 0.12 }} />
+      <div className={`h-6 w-20 rounded-full bg-gradient-to-r ${gradient} mt-1`} style={{ opacity: 0.85 }} />
+    </div>
+  );
+}
+
 /* -------------------------------- Gallery ------------------------------------- */
 function Gallery({ onNavClick }) {
   return (
@@ -579,19 +658,16 @@ function Gallery({ onNavClick }) {
           {PROJECTS.map((p, i) => (
             <Reveal key={p.title} delay={(i % 3) * 100}>
               <div className="group rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] overflow-hidden bg-white dark:bg-[#10131C] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="relative h-44 overflow-hidden">
-                  <SmartImg
-                    src={p.img}
-                    fallback={p.fb}
-                    alt={p.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+                <div className={`relative h-44 overflow-hidden bg-gradient-to-br ${p.gradient} text-white group-hover:scale-[1.02] transition-transform duration-500`}>
+                  <ProjectMock layout={p.layout} gradient={p.gradient} />
                   <div className="absolute top-3 left-3 right-3 flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-white/70" />
                     <span className="h-2 w-2 rounded-full bg-white/70" />
                     <span className="h-2 w-2 rounded-full bg-white/70" />
                     <span className="ml-2 font-mono text-[10px] text-white/80 truncate">{p.domain}</span>
+                  </div>
+                  <div className="absolute top-3 right-3 h-7 w-7 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center">
+                    <i className={`${p.icon} text-xs`} aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="p-6">
