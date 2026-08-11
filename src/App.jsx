@@ -736,7 +736,7 @@ function Testimonials() {
           </div>
 
           <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/5] object-cover" />
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-72 sm:h-96 lg:h-auto lg:aspect-[4/5] object-cover object-top" />
           </div>
         </div>
       </div>
