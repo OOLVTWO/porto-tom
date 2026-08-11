@@ -341,7 +341,7 @@ function Hero({ onNavClick }) {
           fallback="https://picsum.photos/seed/surya-hero/1600/1067"
           alt="Surya Adi Darmawan on stage as PIC of a Mobile Legends: Bang Bang tournament"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '74% 32%' }}
+          style={{ objectPosition: '84% 32%' }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/70 to-[#0A0C12]/15" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/75 via-transparent to-[#0A0C12]/35" />
