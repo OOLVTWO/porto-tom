@@ -247,7 +247,7 @@ function Header({ active, onNavClick }) {
         <button onClick={() => handleClick('home')} className={`font-display text-xl font-bold tracking-tight transition-colors ${
           scrolled || mobileOpen ? 'text-[#12141C] dark:text-[#F4F3EF]' : 'text-white'
         }`}>
-          Surya<span className="text-[#FF5A36]">.</span>Darmawan
+          Adi<span className="text-[#FF5A36]">.</span>Darmawan
         </button>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -880,7 +880,7 @@ function Footer() {
     <footer className="bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030] py-10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
         <span className="font-display font-bold text-[#12141C] dark:text-white">
-          Surya<span className="text-[#FF5A36]">.</span>Darmawan
+          Adi<span className="text-[#FF5A36]">.</span>Darmawan
         </span>
         <div className="flex items-center gap-3">
           {socials.map(({ icon: Icon, href, label }) => (
