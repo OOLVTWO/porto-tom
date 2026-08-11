@@ -714,44 +714,29 @@ function Testimonials() {
   return (
     <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>testimonials</Eyebrow>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4">What clients say</h2>
-        </Reveal>
-
-        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] overflow-hidden grid lg:grid-cols-5">
-          <div className="lg:col-span-3 p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div>
+            <Eyebrow>testimonials</Eyebrow>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">What clients say</h2>
             <div className="flex gap-1 mb-6">
               {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-[#FF5A36] text-[#FF5A36]" />)}
             </div>
-            <p className="font-display text-xl sm:text-2xl text-[#12141C] dark:text-white leading-relaxed mb-6">"{t.quote}"</p>
+            <p className="text-lg sm:text-xl text-[#12141C] dark:text-white leading-relaxed mb-8">"{t.quote}"</p>
             <p className="font-semibold text-[#12141C] dark:text-white">{t.name}</p>
-            <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1 mb-10">{t.title}</p>
+            <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1 mb-8">{t.title}</p>
 
             <div className="flex items-center gap-3">
-              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#151926] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
                 <ChevronLeft size={18} />
               </button>
-              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#151926] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
                 <ChevronRight size={18} />
               </button>
-              <div className="flex gap-2 ml-2">
-                {TESTIMONIALS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setIndex(i)}
-                    aria-label={`Go to testimonial ${i + 1}`}
-                    className={`h-1.5 rounded-full transition-all ${i === index ? 'w-6 bg-[#FF5A36]' : 'w-1.5 bg-[#E7E5E1] dark:bg-[#232A3D]'}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
-          <div className="lg:col-span-2 relative min-h-[280px]">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-transparent" />
-            <i className="fa-solid fa-quote-right absolute top-5 right-5 text-2xl text-white drop-shadow" aria-hidden="true"></i>
+          <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 dark:shadow-black/50">
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/5] object-cover" />
           </div>
         </div>
       </div>
