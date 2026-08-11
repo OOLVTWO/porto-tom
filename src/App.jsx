@@ -18,8 +18,6 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-const SKILLS = ['React', 'TypeScript', 'Next.js', 'Node.js', 'Tailwind CSS', 'GraphQL', 'PostgreSQL', 'Docker'];
-
 const TECH_STACK = [
   { name: 'React', icon: 'fa-brands fa-react' },
   { name: 'TypeScript', icon: 'fa-brands fa-js' },
@@ -38,6 +36,23 @@ const FACTS = [
   { label: 'Focus', value: 'Frontend + Systems', icon: 'fa-solid fa-layer-group' },
   { label: 'Experience', value: '8+ years', icon: 'fa-solid fa-clock' },
   { label: 'Availability', value: 'Open to freelance', icon: 'fa-solid fa-circle-check' },
+];
+
+const ABOUT_PHOTOS = [
+  {
+    src: '/images/speaking-1.jpg',
+    fallback: 'https://picsum.photos/seed/surya-about-1/1600/900',
+    position: '50% 20%',
+    title: 'Answering questions on stage',
+    caption: 'Taking questions from the audience during a Q&A session at a Primakara University tech event.',
+  },
+  {
+    src: '/images/speaking-2.jpg',
+    fallback: 'https://picsum.photos/seed/surya-about-2/1600/900',
+    position: '38% 20%',
+    title: 'Hosting a campus tech talk',
+    caption: 'On stage as part of the organizing committee, walking the audience through the session.',
+  },
 ];
 
 const EXPERTISE = [
@@ -257,10 +272,12 @@ function Header({ active, onNavClick }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled || mobileOpen
         ? 'bg-white/90 dark:bg-[#0A0C12]/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(0,0,0,0.06)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.06)]'
-        : 'bg-white/60 dark:bg-[#0A0C12]/60 backdrop-blur-sm'
+        : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        <button onClick={() => handleClick('home')} className="font-display text-xl font-bold tracking-tight text-[#12141C] dark:text-[#F4F3EF]">
+        <button onClick={() => handleClick('home')} className={`font-display text-xl font-bold tracking-tight transition-colors ${
+          scrolled || mobileOpen ? 'text-[#12141C] dark:text-[#F4F3EF]' : 'text-white'
+        }`}>
           Surya<span className="text-[#FF5A36]">.</span>Darmawan
         </button>
 
@@ -272,7 +289,9 @@ function Header({ active, onNavClick }) {
               className={`relative px-4 py-2 font-mono text-xs uppercase tracking-wide rounded-full transition-colors ${
                 active === item.id
                   ? 'text-[#FF5A36]'
-                  : 'text-[#5B6270] dark:text-[#8D95A8] hover:text-[#12141C] dark:hover:text-white'
+                  : scrolled
+                  ? 'text-[#5B6270] dark:text-[#8D95A8] hover:text-[#12141C] dark:hover:text-white'
+                  : 'text-white/80 hover:text-white'
               }`}
             >
               {item.label}
@@ -285,14 +304,18 @@ function Header({ active, onNavClick }) {
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="h-10 w-10 flex items-center justify-center rounded-full border border-[#E7E5E1] dark:border-[#232A3D] text-[#12141C] dark:text-[#F4F3EF] hover:bg-[#F7F7F5] dark:hover:bg-[#151926] transition-colors"
+            className={`h-10 w-10 flex items-center justify-center rounded-full border transition-colors ${
+              scrolled || mobileOpen
+                ? 'border-[#E7E5E1] dark:border-[#232A3D] text-[#12141C] dark:text-[#F4F3EF] hover:bg-[#F7F7F5] dark:hover:bg-[#151926]'
+                : 'border-white/30 text-white hover:bg-white/10'
+            }`}
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="lg:hidden h-10 w-10 flex items-center justify-center rounded-full text-[#12141C] dark:text-white"
+            className={`lg:hidden h-10 w-10 flex items-center justify-center rounded-full transition-colors ${scrolled || mobileOpen ? 'text-[#12141C] dark:text-white' : 'text-white'}`}
           >
             <Menu size={22} />
           </button>
@@ -335,48 +358,41 @@ function Header({ active, onNavClick }) {
 /* --------------------------------- Hero ------------------------------------ */
 function Hero({ onNavClick }) {
   return (
-    <section id="home" className="scroll-mt-24 relative bg-white dark:bg-[#0A0C12] pt-28 pb-16 sm:pt-36 sm:pb-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="relative">
-          <div className="relative rounded-3xl bg-gradient-to-br from-[#FF7A57] via-[#FF5A36] to-[#E64A28] px-8 sm:px-12 lg:pr-[44%] py-12 sm:py-16 lg:py-20 overflow-hidden">
-            <div className="absolute -top-16 -left-16 w-56 h-56 rounded-full border border-white/15 pointer-events-none" />
-            <div className="absolute bottom-0 left-1/3 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+    <section id="home" className="scroll-mt-24 relative min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0">
+        <SmartImg
+          src="/images/hero-bg.jpg"
+          fallback="https://picsum.photos/seed/surya-hero/1600/1067"
+          alt="Surya Adi Darmawan speaking at a Primakara University tech event"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: '68% 30%' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/75 to-[#0A0C12]/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/70 via-transparent to-[#0A0C12]/40" />
+      </div>
 
-            <div className="relative z-10 max-w-xl">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 font-mono text-xs text-white mb-6">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" /> available for work — 2026
-              </span>
-              <h1 className="font-display text-4xl sm:text-5xl font-bold text-white leading-[1.08] mb-3">
-                Building software people actually enjoy using
-              </h1>
-              <p className="text-lg font-display font-semibold text-white/90 mb-4">Surya Adi Darmawan — Software Engineer</p>
-              <p className="text-white/80 leading-relaxed mb-8 max-w-md">
-                I build fast, reliable software — from React front ends to the systems behind them —
-                currently working with startups across three timezones.
-              </p>
-              <div className="flex items-center gap-6 flex-wrap">
-                <button
-                  onClick={() => onNavClick('portfolio')}
-                  className="inline-flex items-center gap-2 bg-[#12141C] text-white px-6 py-3 rounded-full font-medium hover:bg-[#1C2030] transition-colors"
-                >
-                  View Work <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
-                </button>
-                <HireBadge onClick={() => onNavClick('contact')} />
-              </div>
-            </div>
-
-            {/* Contained photo for mobile/tablet — no breakout, sits within the panel */}
-            <div className="relative z-10 mt-10 flex justify-center lg:hidden">
-              <img src="/images/portrait-cutout.png" alt="Surya Adi Darmawan" className="h-64 sm:h-80 w-auto object-contain drop-shadow-2xl" />
-            </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-20 pb-16">
+        <div className="max-w-xl">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/10 px-4 py-1.5 font-mono text-xs text-white mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A36] animate-pulse" /> available for work — 2026
+          </span>
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-white leading-[1.08] mb-3">
+            Building software people actually enjoy using
+          </h1>
+          <p className="text-lg font-display font-semibold text-[#FF8C6B] mb-4">Surya Adi Darmawan — Software Engineer</p>
+          <p className="text-white/80 leading-relaxed mb-8 max-w-md">
+            I build fast, reliable software — from React front ends to the systems behind them —
+            currently working with startups across three timezones.
+          </p>
+          <div className="flex items-center gap-6 flex-wrap">
+            <button
+              onClick={() => onNavClick('portfolio')}
+              className="inline-flex items-center gap-2 bg-[#FF5A36] text-white px-6 py-3 rounded-full font-medium hover:bg-[#E64A28] transition-colors"
+            >
+              View Work <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+            </button>
+            <HireBadge onClick={() => onNavClick('contact')} />
           </div>
-
-          {/* Breakout photo — large screens only, overlaps the card edge like the reference layout */}
-          <img
-            src="/images/portrait-cutout.png"
-            alt="Surya Adi Darmawan"
-            className="hidden lg:block absolute -top-8 right-6 xl:right-14 h-[112%] w-auto max-w-none object-contain z-20 drop-shadow-2xl"
-          />
         </div>
       </div>
     </section>
@@ -404,7 +420,7 @@ function About() {
             until they're missing.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
             {FACTS.map((f) => (
               <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
                 <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
@@ -416,13 +432,6 @@ function About() {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-10">
-            {SKILLS.map((skill) => (
-              <span key={skill} className="font-mono text-xs px-3 py-1.5 rounded-full bg-white dark:bg-[#151926] text-[#12141C] dark:text-[#F4F3EF] border border-[#E7E5E1] dark:border-[#232A3D]">
-                {skill}
-              </span>
-            ))}
-          </div>
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
@@ -432,22 +441,61 @@ function About() {
           </a>
         </Reveal>
 
-        <Reveal delay={100} className="relative mt-4">
-          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-sm">
-            <SmartImg
-              src="/images/speaking-2.jpg"
-              fallback="https://picsum.photos/seed/surya-speaking/1600/900"
-              alt="Surya Adi Darmawan speaking at a Primakara University tech event"
-              className="w-full aspect-video sm:aspect-[21/9] object-cover"
-              style={{ objectPosition: '50% 30%' }}
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 sm:p-6">
-              <p className="text-white text-sm font-medium">Speaking at a Primakara University tech event</p>
-            </div>
-          </div>
+        <Reveal delay={100} className="mt-10">
+          <PhotoCarousel />
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/* ---------------------------- About Photo Carousel ----------------------------- */
+function PhotoCarousel() {
+  const [index, setIndex] = useState(0);
+  const slide = ABOUT_PHOTOS[index];
+  const prev = () => setIndex((i) => (i - 1 + ABOUT_PHOTOS.length) % ABOUT_PHOTOS.length);
+  const next = () => setIndex((i) => (i + 1) % ABOUT_PHOTOS.length);
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D] shadow-sm group">
+      <SmartImg
+        src={slide.src}
+        fallback={slide.fallback}
+        alt={slide.title}
+        className="w-full aspect-video sm:aspect-[21/9] object-cover"
+        style={{ objectPosition: slide.position }}
+      />
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5 sm:p-6">
+        <p className="text-white font-display font-semibold">{slide.title}</p>
+        <p className="text-white/70 text-sm mt-0.5 max-w-lg">{slide.caption}</p>
+      </div>
+
+      <button
+        onClick={prev}
+        aria-label="Previous photo"
+        className="absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
+      >
+        <ChevronLeft size={18} />
+      </button>
+      <button
+        onClick={next}
+        aria-label="Next photo"
+        className="absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center backdrop-blur transition-colors"
+      >
+        <ChevronRight size={18} />
+      </button>
+
+      <div className="absolute top-4 right-4 flex gap-1.5">
+        {ABOUT_PHOTOS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            aria-label={`Go to photo ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all ${i === index ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
