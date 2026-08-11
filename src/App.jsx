@@ -53,6 +53,34 @@ const ABOUT_PHOTOS = [
     title: 'Running the show off-screen too',
     caption: 'Organizing and hosting on stage during the MLBB tournament — not just behind a keyboard.',
   },
+  {
+    src: '/images/moment-beach.jpg',
+    fallback: 'https://picsum.photos/seed/surya-beach/1600/900',
+    position: 'center 40%',
+    title: 'Weekend reset with the crew',
+    caption: 'Snacks, sand, and no laptops in sight — the other side of the schedule.',
+  },
+  {
+    src: '/images/moment-ceremony.jpg',
+    fallback: 'https://picsum.photos/seed/surya-ceremony/1600/900',
+    position: 'center 30%',
+    title: 'Dressed up for a Bali ceremony',
+    caption: 'Traditional attire for a temple day in Bali, together with the crew.',
+  },
+  {
+    src: '/images/moment-photobooth.jpg',
+    fallback: 'https://picsum.photos/seed/surya-photobooth/1600/900',
+    position: 'center 45%',
+    title: 'Photobooth memories',
+    caption: 'Old photobooth strips with friends — proof not everything needs a deadline.',
+  },
+  {
+    src: '/images/moment-birthday.jpg',
+    fallback: 'https://picsum.photos/seed/surya-birthday/1600/900',
+    position: 'center 35%',
+    title: 'Celebrating together',
+    caption: 'A birthday celebration with a big group of friends — cake included.',
+  },
 ];
 
 const EXPERTISE = [
