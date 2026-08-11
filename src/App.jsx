@@ -372,39 +372,41 @@ function Hero({ onNavClick }) {
 function About() {
   return (
     <section id="about" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-y border-[#E7E5E1] dark:border-[#1B2030]">
-      <div className="max-w-4xl mx-auto px-6 lg:px-10">
-        <Reveal>
-          <Eyebrow>about-me</Eyebrow>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">
-            Six months in, and already shipping real software
-          </h2>
-          <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-4">
-            I'm a software engineer working across the front end and the systems behind it, based in
-            Bali, Indonesia. I care about interfaces that feel considered and the code underneath that
-            keeps them fast — from component architecture to the API it talks to.
-          </p>
-          <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-8">
-            I'm early in my career, but I've already worked across dashboards, booking flows, and marketing
-            sites — learning fast and shipping along the way. I care most about the details nobody notices
-            until they're missing.
-          </p>
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <Reveal>
+            <Eyebrow>about-me</Eyebrow>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">
+              Six months in, and already shipping real software
+            </h2>
+            <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-4">
+              I'm a software engineer working across the front end and the systems behind it, based in
+              Bali, Indonesia. I care about interfaces that feel considered and the code underneath that
+              keeps them fast — from component architecture to the API it talks to.
+            </p>
+            <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-8">
+              I'm early in my career, but I've already worked across dashboards, booking flows, and marketing
+              sites — learning fast and shipping along the way. I care most about the details nobody notices
+              until they're missing.
+            </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {FACTS.map((f) => (
-              <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
-                <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
-                  <i className={`${f.icon} text-xs`} aria-hidden="true"></i>
-                  <span className="font-mono text-[10px] uppercase tracking-wide text-[#5B6270] dark:text-[#8D95A8]">{f.label}</span>
+            <div className="grid grid-cols-2 gap-4">
+              {FACTS.map((f) => (
+                <div key={f.label} className="rounded-xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] px-4 py-3">
+                  <div className="flex items-center gap-2 text-[#FF5A36] mb-1">
+                    <i className={`${f.icon} text-xs`} aria-hidden="true"></i>
+                    <span className="font-mono text-[10px] uppercase tracking-wide text-[#5B6270] dark:text-[#8D95A8]">{f.label}</span>
+                  </div>
+                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">{f.value}</p>
                 </div>
-                <p className="text-sm font-semibold text-[#12141C] dark:text-white">{f.value}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+              ))}
+            </div>
+          </Reveal>
 
-        <Reveal delay={100} className="mt-10">
-          <PhotoCarousel />
-        </Reveal>
+          <Reveal delay={100}>
+            <PhotoCarousel />
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -672,14 +674,16 @@ function StatItem({ stat }) {
   const [ref, inView] = useInView(0.4);
   const count = useCountUp(stat.value, inView);
   return (
-    <div ref={ref} className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-      <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mx-auto mb-4`}>
-        <i className={`${stat.icon} text-white text-lg`} aria-hidden="true"></i>
+    <div ref={ref} className="flex items-center gap-4 p-6 sm:p-8">
+      <div className={`h-14 w-14 shrink-0 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center`}>
+        <i className={`${stat.icon} text-white text-xl`} aria-hidden="true"></i>
       </div>
-      <div className="font-display text-3xl sm:text-4xl font-bold text-[#12141C] dark:text-white mb-1">
-        {count}{stat.suffix}
+      <div>
+        <div className="font-display text-2xl sm:text-3xl font-bold text-[#12141C] dark:text-white leading-none mb-1.5">
+          {count}{stat.suffix}
+        </div>
+        <div className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] uppercase tracking-wide">{stat.label}</div>
       </div>
-      <div className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] uppercase tracking-wide">{stat.label}</div>
     </div>
   );
 }
@@ -687,8 +691,10 @@ function StatItem({ stat }) {
 function Stats() {
   return (
     <section className="py-16 sm:py-20 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-        {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y divide-[#E7E5E1] dark:divide-[#232A3D] sm:divide-x sm:divide-y lg:divide-y-0">
+          {STATS.map((s) => <StatItem key={s.label} stat={s} />)}
+        </div>
       </div>
     </section>
   );
@@ -708,10 +714,13 @@ function Testimonials() {
   return (
     <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <Eyebrow>testimonials</Eyebrow>
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-6">What clients say</h2>
+        <Reveal className="max-w-2xl mb-12">
+          <Eyebrow>testimonials</Eyebrow>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4">What clients say</h2>
+        </Reveal>
+
+        <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-[#F7F7F5] dark:bg-[#10131C] overflow-hidden grid lg:grid-cols-5">
+          <div className="lg:col-span-3 p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
             <div className="flex gap-1 mb-6">
               {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-[#FF5A36] text-[#FF5A36]" />)}
             </div>
@@ -720,10 +729,10 @@ function Testimonials() {
             <p className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8] mt-1 mb-10">{t.title}</p>
 
             <div className="flex items-center gap-3">
-              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-[#F7F7F5] dark:hover:bg-[#151926] transition-colors">
+              <button onClick={prev} aria-label="Previous testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#151926] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
                 <ChevronLeft size={18} />
               </button>
-              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:bg-[#F7F7F5] dark:hover:bg-[#151926] transition-colors">
+              <button onClick={next} aria-label="Next testimonial" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#151926] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
                 <ChevronRight size={18} />
               </button>
               <div className="flex gap-2 ml-2">
@@ -739,9 +748,10 @@ function Testimonials() {
             </div>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden border border-[#E7E5E1] dark:border-[#232A3D]">
-            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full aspect-[4/3] sm:aspect-[4/5] object-cover" />
-            <i className="fa-solid fa-quote-right absolute top-5 right-5 text-2xl text-white/80" aria-hidden="true"></i>
+          <div className="lg:col-span-2 relative min-h-[280px]">
+            <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-transparent" />
+            <i className="fa-solid fa-quote-right absolute top-5 right-5 text-2xl text-white drop-shadow" aria-hidden="true"></i>
           </div>
         </div>
       </div>
@@ -772,48 +782,55 @@ function Contact() {
   return (
     <section id="contact" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F7F5] dark:bg-[#0D1017] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          <div>
-            <Eyebrow>lets-talk</Eyebrow>
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4 mb-4">
-              Let's build something great
-            </h2>
-            <p className="text-[#5B6270] dark:text-[#8D95A8] leading-relaxed mb-10 max-w-md">
-              Have a project in mind, or just want to talk through an idea? My inbox is open.
-            </p>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FF7A57] via-[#FF5A36] to-[#E64A28] p-6 sm:p-10 lg:p-14">
+          <DotGrid className="inset-0 !opacity-[0.12]" />
+          <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-10 w-64 h-64 rounded-full border border-white/10 pointer-events-none" />
 
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
-                  <i className="fa-solid fa-bolt text-[#FF5A36]" aria-hidden="true"></i>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">Fast response</p>
-                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Usually replies within 24 hours</p>
+          <div className="relative grid lg:grid-cols-5 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-1.5 font-mono text-xs text-white mb-6">
+                <span className="text-white/60">//</span> lets-talk
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
+                Let's build something great
+              </h2>
+              <p className="text-white/75 leading-relaxed mb-10 max-w-md">
+                Have a project in mind, or just want to talk through an idea? My inbox is open.
+              </p>
+
+              <div className="space-y-5">
+                <div className="flex items-start gap-4">
+                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                    <i className="fa-solid fa-bolt text-white" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Fast response</p>
+                    <p className="text-sm text-white/65">Usually replies within 24 hours</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
-                  <i className="fa-solid fa-handshake text-[#FF5A36]" aria-hidden="true"></i>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">Open to freelance</p>
-                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Available for new projects right now</p>
+                <div className="flex items-start gap-4">
+                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                    <i className="fa-solid fa-handshake text-white" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Open to freelance</p>
+                    <p className="text-sm text-white/65">Available for new projects right now</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <span className="h-11 w-11 shrink-0 rounded-full bg-white dark:bg-[#10131C] border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center">
-                  <i className="fa-solid fa-lock text-[#FF5A36]" aria-hidden="true"></i>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#12141C] dark:text-white">No spam, ever</p>
-                  <p className="text-sm text-[#5B6270] dark:text-[#8D95A8]">Your info is only used to reply to you</p>
+                <div className="flex items-start gap-4">
+                  <span className="h-11 w-11 shrink-0 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                    <i className="fa-solid fa-lock text-white" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">No spam, ever</p>
+                    <p className="text-sm text-white/65">Your info is only used to reply to you</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8">
+            <div className="lg:col-span-3 rounded-2xl bg-white dark:bg-[#10131C] p-6 sm:p-8 shadow-2xl shadow-black/20">
           {submitted ? (
             <div className="flex flex-col items-center text-center py-6">
               <CheckCircle2 size={40} className="text-[#FF5A36] mb-4" />
@@ -891,6 +908,7 @@ function Contact() {
                 </div>
               </form>
           )}
+            </div>
           </div>
         </div>
       </div>
