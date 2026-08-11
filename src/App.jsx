@@ -203,20 +203,13 @@ function DotGrid({ className = '' }) {
 
 function HireBadge({ onClick }) {
   return (
-    <button onClick={onClick} className="relative h-24 w-24 shrink-0" aria-label="Hire me — go to contact">
-      <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-[spin_11s_linear_infinite]">
-        <defs>
-          <path id="circlePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
-        </defs>
-        <text fill="white" fontSize="7.4" letterSpacing="2.2">
-          <textPath href="#circlePath" startOffset="0%">AVAILABLE FOR HIRE • AVAILABLE FOR HIRE •</textPath>
-        </text>
-      </svg>
-      <span className="absolute inset-0 flex items-center justify-center">
-        <span className="h-12 w-12 rounded-full bg-[#12141C] ring-2 ring-white/30 flex items-center justify-center text-white">
-          <i className="fa-solid fa-arrow-right -rotate-45 text-sm" aria-hidden="true"></i>
-        </span>
-      </span>
+    <button
+      onClick={onClick}
+      className="inline-flex items-center gap-2 rounded-full border border-white/25 hover:border-white/50 bg-white/5 hover:bg-white/10 backdrop-blur text-white px-6 py-3 font-medium transition-colors"
+    >
+      <span className="h-2 w-2 rounded-full bg-[#FF5A36] animate-pulse" />
+      Available for Hire
+      <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
     </button>
   );
 }
@@ -341,7 +334,7 @@ function Hero({ onNavClick }) {
           fallback="https://picsum.photos/seed/surya-hero/1600/1067"
           alt="Surya Adi Darmawan on stage as PIC of a Mobile Legends: Bang Bang tournament"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '84% 32%' }}
+          style={{ objectPosition: '66% 26%' }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/70 to-[#0A0C12]/15" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/75 via-transparent to-[#0A0C12]/35" />
