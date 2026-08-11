@@ -117,6 +117,41 @@ const TESTIMONIALS = [
     img: 'https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&w=200',
     fb: 'https://picsum.photos/seed/sofia-reyes/200/200',
   },
+  {
+    quote: "The analytics dashboard he shipped for Orbital replaced three separate spreadsheets. Our whole data team relies on it daily now.",
+    name: 'James Okafor',
+    title: 'Data Lead, Orbital',
+    img: 'https://images.pexels.com/photos/10029839/pexels-photo-10029839.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/james-okafor/200/200',
+  },
+  {
+    quote: 'Checkout conversion went up within the first week of launch. Surya actually tested the flow on real devices instead of just guessing.',
+    name: 'Ava Chen',
+    title: 'Head of Growth, Lumen',
+    img: 'https://images.pexels.com/photos/34381970/pexels-photo-34381970.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/ava-chen/200/200',
+  },
+  {
+    quote: "Booking errors basically disappeared after the rebuild. It's the first version of our platform I'd actually recommend to a friend.",
+    name: 'Daniel Kowalski',
+    title: 'Founder, Atlas Booking',
+    img: 'https://images.pexels.com/photos/7841788/pexels-photo-7841788.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/daniel-kowalski/200/200',
+  },
+  {
+    quote: "Fast, communicative, and honestly just easy to work with. He flagged issues before we even noticed them ourselves.",
+    name: 'Michael Torres',
+    title: 'CTO, Beacon Health',
+    img: 'https://images.pexels.com/photos/28441026/pexels-photo-28441026.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/michael-torres/200/200',
+  },
+  {
+    quote: "Our designs finally shipped pixel-for-pixel instead of getting watered down in development. That handoff has never been this smooth.",
+    name: 'Nadia Putri',
+    title: 'Product Manager, Fernwood Studio',
+    img: 'https://images.pexels.com/photos/10041257/pexels-photo-10041257.jpeg?auto=compress&cs=tinysrgb&w=200',
+    fb: 'https://picsum.photos/seed/nadia-putri/200/200',
+  },
 ];
 
 /* --------------------------------- Hooks ---------------------------------- */
@@ -695,29 +730,47 @@ function Stats() {
 
 /* ------------------------------- Testimonials ---------------------------------- */
 function Testimonials() {
+  const perPage = 4;
+  const totalPages = Math.ceil(TESTIMONIALS.length / perPage);
+  const [page, setPage] = useState(0);
+  const prev = () => setPage((p) => (p - 1 + totalPages) % totalPages);
+  const next = () => setPage((p) => (p + 1) % totalPages);
+  const visible = TESTIMONIALS.slice(page * perPage, page * perPage + perPage);
+
   return (
     <section id="testimonials" className="scroll-mt-24 py-20 sm:py-28 bg-white dark:bg-[#0A0C12] border-t border-[#E7E5E1] dark:border-[#1B2030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>testimonials</Eyebrow>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4">What clients say</h2>
-        </Reveal>
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <Reveal className="max-w-2xl">
+            <Eyebrow>testimonials</Eyebrow>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-[#12141C] dark:text-white mt-4">What clients say</h2>
+          </Reveal>
+          <div className="flex items-center gap-3 shrink-0">
+            <button onClick={prev} aria-label="Previous testimonials" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+              <ChevronLeft size={18} />
+            </button>
+            <span className="font-mono text-xs text-[#5B6270] dark:text-[#8D95A8]">{page + 1} / {totalPages}</span>
+            <button onClick={next} aria-label="Next testimonials" className="h-11 w-11 rounded-full border border-[#E7E5E1] dark:border-[#232A3D] flex items-center justify-center text-[#12141C] dark:text-white hover:border-[#FF5A36] hover:text-[#FF5A36] transition-colors">
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((t, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {visible.map((t, i) => (
             <Reveal key={t.name} delay={i * 100} className="h-full">
-              <div className="h-full rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 sm:p-8 flex flex-col">
+              <div className="h-full rounded-2xl border border-[#E7E5E1] dark:border-[#232A3D] bg-white dark:bg-[#10131C] p-6 flex flex-col">
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, j) => <Star key={j} size={14} className="fill-[#FF5A36] text-[#FF5A36]" />)}
                 </div>
-                <p className="text-[#12141C] dark:text-white leading-relaxed mb-6 flex-1">"{t.quote}"</p>
+                <p className="text-sm text-[#12141C] dark:text-white leading-relaxed mb-6 flex-1">"{t.quote}"</p>
                 <div className="flex items-center gap-3 pt-5 border-t border-[#E7E5E1] dark:border-[#232A3D]">
-                  <div className="h-11 w-11 rounded-full overflow-hidden shrink-0 ring-2 ring-[#F7F7F5] dark:ring-[#151926]">
+                  <div className="h-10 w-10 rounded-full overflow-hidden shrink-0 ring-2 ring-[#F7F7F5] dark:ring-[#151926]">
                     <SmartImg src={t.img} fallback={t.fb} alt={t.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-[#12141C] dark:text-white">{t.name}</p>
-                    <p className="font-mono text-[11px] text-[#5B6270] dark:text-[#8D95A8]">{t.title}</p>
+                    <p className="font-mono text-[10px] text-[#5B6270] dark:text-[#8D95A8]">{t.title}</p>
                   </div>
                 </div>
               </div>
