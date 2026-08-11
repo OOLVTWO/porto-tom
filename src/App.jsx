@@ -43,15 +43,15 @@ const ABOUT_PHOTOS = [
     src: '/images/speaking-1.jpg',
     fallback: 'https://picsum.photos/seed/surya-about-1/1600/900',
     position: '48% 35%',
-    title: 'Answering questions on stage',
-    caption: 'Taking questions from the audience during a Q&A session at a Primakara University tech event.',
+    title: 'Leading as tournament PIC',
+    caption: 'On the mic as person-in-charge (PIC) for a Mobile Legends: Bang Bang tournament.',
   },
   {
     src: '/images/speaking-2.jpg',
     fallback: 'https://picsum.photos/seed/surya-about-2/1600/900',
     position: '52% 55%',
-    title: 'Hosting a campus tech talk',
-    caption: 'On stage as part of the organizing committee, walking the audience through the session.',
+    title: 'Running the show off-screen too',
+    caption: 'Organizing and hosting on stage during the MLBB tournament — not just behind a keyboard.',
   },
 ];
 
@@ -334,21 +334,20 @@ function Header({ active, onNavClick }) {
 /* --------------------------------- Hero ------------------------------------ */
 function Hero({ onNavClick }) {
   return (
-    <section id="home" className="scroll-mt-24 relative bg-[#0A0C12] lg:min-h-screen lg:flex lg:items-center overflow-hidden">
-      {/* Full-bleed background photo — desktop only, where there's room for text without overlap */}
-      <div className="hidden lg:block absolute inset-0">
+    <section id="home" className="scroll-mt-24 relative bg-[#0A0C12] overflow-hidden lg:min-h-screen lg:flex lg:items-center">
+      <div className="absolute inset-0">
         <SmartImg
           src="/images/hero-bg.jpg"
           fallback="https://picsum.photos/seed/surya-hero/1600/1067"
-          alt="Surya Adi Darmawan speaking at a Primakara University tech event"
+          alt="Surya Adi Darmawan on stage as PIC of a Mobile Legends: Bang Bang tournament"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '75% 30%' }}
+          style={{ objectPosition: '74% 32%' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/80 to-[#0A0C12]/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/70 via-transparent to-[#0A0C12]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C12] via-[#0A0C12]/70 to-[#0A0C12]/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C12]/75 via-transparent to-[#0A0C12]/35" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-24 pb-14 lg:py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-28 pb-16 lg:py-16">
         <div className="max-w-xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/10 px-4 py-1.5 font-mono text-xs text-white mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A36] animate-pulse" /> available for work — 2026
@@ -370,17 +369,6 @@ function Hero({ onNavClick }) {
             </button>
             <HireBadge onClick={() => onNavClick('contact')} />
           </div>
-        </div>
-
-        {/* Contained photo — mobile/tablet only, sits below the text so nothing overlaps */}
-        <div className="lg:hidden mt-10 rounded-2xl overflow-hidden border border-white/10">
-          <SmartImg
-            src="/images/hero-bg.jpg"
-            fallback="https://picsum.photos/seed/surya-hero/1600/1067"
-            alt="Surya Adi Darmawan speaking at a Primakara University tech event"
-            className="w-full aspect-[4/3] sm:aspect-video object-cover"
-            style={{ objectPosition: '60% 25%' }}
-          />
         </div>
       </div>
     </section>
