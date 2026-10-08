@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, useScroll, useSpring } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { Command, History, Search, Trophy, UserPlus, UserRound, Backpack, Images, Volume2, VolumeX } from 'lucide-react';
 import * as sfx from '../lib/sfx';
 import { SECTIONS, PROFILE } from '../data/profile';
@@ -11,12 +11,21 @@ export function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Scroll progress, drawn along the bottom edge of the top bar.
 function XpBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+  const tipX = useTransform(scaleX, (v) => `${v * 100}%`);
   return (
-    <div className="absolute inset-x-0 top-0 h-[3px] bg-line/60" aria-hidden="true">
-      <motion.div style={{ scaleX }} className="h-full origin-left bg-gradient-to-r from-ember via-gold to-cyan" />
+    <div className="absolute inset-x-0 -bottom-px h-1 bg-line lg:h-[3px]" aria-hidden="true">
+      <motion.div
+        style={{ scaleX }}
+        className="h-full origin-left bg-gradient-to-r from-ember via-gold to-cyan shadow-[0_0_10px_rgba(255,90,54,0.8)]"
+      />
+      <motion.span
+        style={{ left: tipX }}
+        className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_10px_3px_rgba(56,217,245,0.9)] lg:h-2 lg:w-2"
+      />
     </div>
   );
 }
