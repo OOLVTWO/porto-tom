@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-void text-ink font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-ember text-white;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-ember ring-offset-2 ring-offset-void;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Panel with a cut top-right / bottom-left corner, the core HUD shape. */
+  .hud-cut {
+    clip-path: polygon(0 0, calc(100% - var(--cut, 14px)) 0, 100% var(--cut, 14px), 100% 100%, var(--cut, 14px) 100%, 0 calc(100% - var(--cut, 14px)));
+  }
+  .hud-panel {
+    @apply relative bg-panel border border-line;
+  }
+  .hud-label {
+    @apply font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-mute;
+  }
+  .btn-primary {
+    @apply hud-cut inline-flex items-center justify-center gap-2 bg-ember px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.14em] text-white transition-[background-color,transform] hover:bg-ember-soft active:scale-[0.98];
+    --cut: 10px;
+  }
+  .btn-ghost {
+    @apply hud-cut inline-flex items-center justify-center gap-2 border border-line bg-raised/60 px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.14em] text-ink transition-colors hover:border-ember/60 hover:text-white;
+    --cut: 10px;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(rgba(140, 149, 171, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(140, 149, 171, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
