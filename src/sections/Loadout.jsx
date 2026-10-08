@@ -43,8 +43,8 @@ export default function Loadout({ onOpenMatch, onFilterItem }) {
           Pulled from the stacks of the projects below. Tap an item to see where I’ve used it.
         </SectionHeader>
 
-        <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
+        <div className="grid gap-6 md:grid-cols-12 lg:gap-10">
+          <div className="md:col-span-7">
             <div className="mb-4 flex flex-wrap gap-4">
               {Object.entries(TIERS).map(([id, t]) => (
                 <span key={id} className="flex items-center gap-2 font-display text-[11px] font-semibold uppercase tracking-wider text-mute">
@@ -59,8 +59,8 @@ export default function Loadout({ onOpenMatch, onFilterItem }) {
             </div>
           </div>
 
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24">
+          <div className="md:col-span-5">
+            <div className="md:sticky md:top-24">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={item.id}

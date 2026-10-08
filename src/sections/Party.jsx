@@ -47,14 +47,14 @@ export default function Party({ onCopyEmail, copied }) {
           you. I reply within a day.
         </SectionHeader>
 
-        <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
+        <div className="grid gap-6 md:grid-cols-12 lg:gap-10">
           <motion.form
             onSubmit={submit}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5 }}
-            className="hud-panel hud-cut relative p-5 [--cut:20px] sm:p-8 lg:col-span-7"
+            className="hud-panel hud-cut relative p-5 [--cut:20px] sm:p-8 md:col-span-7"
           >
             <Corners className="border-ember/70" />
             <fieldset>
@@ -119,7 +119,7 @@ export default function Party({ onCopyEmail, copied }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col gap-4 lg:col-span-5"
+            className="flex flex-col gap-4 md:col-span-5"
           >
             <a
               href={`https://wa.me/${PROFILE.whatsapp}?text=${encodeURIComponent('Hi Surya! I saw your portfolio and')}`}

@@ -40,8 +40,8 @@ export default function Highlights() {
   return (
     <section id="highlights" className="scroll-mt-16 border-t border-line py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-5">
+        <div className="grid gap-10 md:grid-cols-12 lg:gap-14">
+          <div className="md:col-span-5">
             <SectionHeader index="04" kicker="Highlights" title="Off-screen, I run the lobby">
               Before I was shipping booking systems, I was on stage running Mobile Legends tournaments as PIC. Organising
               brackets, keeping teams on schedule and handling a live crowd taught me the same thing good software does:
@@ -62,7 +62,7 @@ export default function Highlights() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5 }}
-            className="min-w-0 lg:col-span-7"
+            className="min-w-0 md:col-span-7"
           >
             <div
               ref={track}
