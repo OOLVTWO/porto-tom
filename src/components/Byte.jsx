@@ -187,6 +187,8 @@ export default function Byte({ active }) {
   // One tip per section, the first time it becomes active.
   useEffect(() => {
     if (hidden || !active || tipped.current.has(active)) return;
+    // On phones the hero is packed edge to edge, so skip the greeting there.
+    if (active === 'profile' && !window.matchMedia('(min-width: 1024px)').matches) return;
     const t = setTimeout(() => {
       tipped.current.add(active);
       say(SECTION_TIPS[active]);
@@ -261,7 +263,7 @@ export default function Byte({ active }) {
             initial={{ opacity: 0, scale: 0.5, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 40 }}
-            className="pointer-events-auto absolute bottom-[84px] right-3 cursor-grab touch-none active:cursor-grabbing lg:bottom-6 lg:right-6"
+            className="pointer-events-auto absolute bottom-[78px] right-2 cursor-grab touch-none active:cursor-grabbing lg:bottom-6 lg:right-6"
           >
             <AnimatePresence>
               {bubble && (
@@ -297,7 +299,7 @@ export default function Byte({ active }) {
                 initial={false}
                 animate={hop && !reduce ? { y: [0, -16, 0], rotate: [0, -8, 8, 0] } : undefined}
                 transition={{ duration: 0.45 }}
-                className="block h-[68px] w-[62px] lg:h-[84px] lg:w-[76px]"
+                className="block h-[54px] w-[50px] lg:h-[84px] lg:w-[76px]"
                 aria-label="Byte, the lobby companion. Click for a tip."
               >
                 <ByteSprite mood={mood} lookX={lookX} lookY={lookY} blink={blink} />

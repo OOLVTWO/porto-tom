@@ -1,4 +1,4 @@
-// Sound effects, synthesised with the Web Audio API so there are no audio files to load.
+// Sound effects, synthesised with the Web Audio API so there are no audio files to load (and no voice).
 // To use your own recordings instead, drop them in public/sfx/ and list them in CUSTOM_FILES,
 // e.g. { 'streak-1': '/sfx/first-blood.mp3' }. Listed files win over the synth.
 
@@ -35,7 +35,6 @@ export function setMuted(next) {
   } catch {
     /* ignore */
   }
-  if (next && typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
   listeners.forEach((fn) => fn(next));
 }
 
@@ -123,25 +122,10 @@ function echo(ac, time = 0.18, feedback = 0.35) {
 
 const midi = (n) => 440 * 2 ** ((n - 69) / 12);
 
-function speak(text, level) {
-  if (typeof speechSynthesis === 'undefined' || muted) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  const voices = speechSynthesis.getVoices();
-  const en = voices.filter((v) => v.lang?.startsWith('en'));
-  u.voice = en.find((v) => /male|daniel|fred|alex|google uk english male/i.test(v.name)) || en[0] || null;
-  u.lang = 'en-US';
-  u.rate = 0.92 + level * 0.03;
-  u.pitch = 0.55 + level * 0.06;
-  u.volume = 1;
-  setTimeout(() => speechSynthesis.speak(u), 140);
-}
-
 // Kill-streak stinger. Level 1–5 (First Blood … Savage); each level hits harder and climbs higher.
 export function streak(level) {
   const lvl = Math.max(1, Math.min(5, level));
   if (playFile(`streak-${lvl}`)) return;
-  speak(STREAKS[lvl - 1], lvl);
   stinger(lvl);
 }
 
@@ -150,23 +134,30 @@ function stinger(lvl) {
   if (!ac) return;
   const fx = echo(ac, 0.16 + lvl * 0.02, 0.25 + lvl * 0.05);
 
+  // One quick hit per streak level (Double Kill = 2, Triple Kill = 3 …), then the big impact lands.
+  const gap = 0.075;
+  for (let i = 0; i < lvl; i++) {
+    noise(ac, { start: i * gap, dur: 0.06, gain: 0.22, type: 'bandpass', freq: 2500 + i * 500, q: 3 });
+    tone(ac, { type: 'square', freq: midi(64 + i * 2), start: i * gap, dur: 0.06, gain: 0.05 });
+  }
+  const land = lvl * gap;
   // Impact: sub drop + noise thump.
-  tone(ac, { type: 'sine', freq: 150, to: 38, dur: 0.5 + lvl * 0.08, gain: 0.7 });
-  noise(ac, { dur: 0.25, gain: 0.5, freq: 900, to: 120 });
+  tone(ac, { type: 'sine', freq: 150, to: 38, start: land, dur: 0.5 + lvl * 0.08, gain: 0.7 });
+  noise(ac, { start: land, dur: 0.25, gain: 0.5, freq: 900, to: 120 });
   // Blade "shing".
-  noise(ac, { start: 0.02, dur: 0.35, gain: 0.16, type: 'bandpass', freq: 7000, to: 2500, q: 4, dest: fx });
+  noise(ac, { start: land + 0.02, dur: 0.35, gain: 0.16, type: 'bandpass', freq: 7000, to: 2500, q: 4, dest: fx });
   // Chord stab, root climbs with the streak.
   const roots = [57, 60, 62, 64, 69];
   const root = roots[lvl - 1];
   [0, 7, 12, ...(lvl >= 3 ? [16] : []), ...(lvl >= 5 ? [19, 24] : [])].forEach((iv, i) => {
-    tone(ac, { type: 'sawtooth', freq: midi(root + iv), start: 0.04, dur: 0.55 + lvl * 0.1, gain: 0.07, dest: fx });
-    if (i < 2) tone(ac, { type: 'square', freq: midi(root + iv - 12), start: 0.04, dur: 0.45, gain: 0.05 });
+    tone(ac, { type: 'sawtooth', freq: midi(root + iv), start: land + 0.04, dur: 0.55 + lvl * 0.1, gain: 0.07, dest: fx });
+    if (i < 2) tone(ac, { type: 'square', freq: midi(root + iv - 12), start: land + 0.04, dur: 0.45, gain: 0.05 });
   });
   // Rising sparkle for the higher streaks.
   for (let i = 0; i < lvl; i++) {
-    tone(ac, { type: 'triangle', freq: midi(root + 24 + i * 3), start: 0.12 + i * 0.06, dur: 0.25, gain: 0.06, dest: fx });
+    tone(ac, { type: 'triangle', freq: midi(root + 24 + i * 3), start: land + 0.12 + i * 0.06, dur: 0.25, gain: 0.06, dest: fx });
   }
-  if (lvl === 5) noise(ac, { start: 0.05, dur: 1.1, gain: 0.12, type: 'highpass', freq: 400, to: 6000, dest: fx });
+  if (lvl === 5) noise(ac, { start: land + 0.05, dur: 1.1, gain: 0.12, type: 'highpass', freq: 400, to: 6000, dest: fx });
 }
 
 export function achievement() {
@@ -179,7 +170,6 @@ export function achievement() {
 
 export function legendary() {
   if (playFile('legendary')) return;
-  speak('Legendary', 5);
   stinger(5);
   const ac = audio();
   if (!ac) return;
