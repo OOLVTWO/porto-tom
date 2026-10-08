@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, Copy, Github, Instagram, Linkedin, Send } from 'lucide-react';
+import { Check, Copy, Github, Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { useAchievements } from '../lib/achievements';
 import { Corners, SectionHeader } from '../components/ui';
@@ -23,13 +23,19 @@ export default function Party({ onCopyEmail, copied }) {
 
   const queueLabel = QUEUES.find((q) => q.id === queue).label;
 
-  // No backend: opens the visitor's mail app with everything pre-filled.
+  // No backend: opens WhatsApp or the visitor's mail app with everything pre-filled.
   const submit = (e) => {
     e.preventDefault();
-    const subject = `[${queueLabel}] Party invite from ${name.trim()}`;
-    const body = `${message.trim()}\n\n— ${name.trim()}`;
-    window.location.href = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const via = e.nativeEvent.submitter?.value === 'email' ? 'email' : 'whatsapp';
+    if (via === 'whatsapp') {
+      const text = `Hi Surya, I'm ${name.trim()}. [${queueLabel}]\n\n${message.trim()}`;
+      window.open(`https://wa.me/${PROFILE.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    } else {
+      const subject = `[${queueLabel}] Party invite from ${name.trim()}`;
+      const body = `${message.trim()}\n\n— ${name.trim()}`;
+      window.location.href = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+    setSent(via);
     unlock('party-up');
   };
 
@@ -37,8 +43,8 @@ export default function Party({ onCopyEmail, copied }) {
     <section id="party" className="scroll-mt-16 border-t border-line bg-panel/30 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <SectionHeader index="05" kicker="Invite to party" title="Looking for a teammate?">
-          Pick a queue, tell me what you’re building and your mail app opens with the message ready to send. I reply
-          within a day.
+          Pick a queue, tell me what you’re building and send it through WhatsApp or email. The message is filled in for
+          you. I reply within a day.
         </SectionHeader>
 
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
@@ -92,15 +98,20 @@ export default function Party({ onCopyEmail, copied }) {
             </label>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button type="submit" className="btn-primary">
-                <Send size={16} /> Send invite
+              <button type="submit" value="whatsapp" className="btn-primary">
+                <MessageCircle size={16} /> Send via WhatsApp
               </button>
-              {sent && (
-                <p className="text-sm text-win" role="status">
-                  Your mail app should be open. If it didn’t, copy my email instead.
-                </p>
-              )}
+              <button type="submit" value="email" className="btn-ghost">
+                <Mail size={16} /> Send via email
+              </button>
             </div>
+            {sent && (
+              <p className="mt-3 text-sm text-win" role="status">
+                {sent === 'whatsapp'
+                  ? 'WhatsApp should be open with your message ready. Just hit send.'
+                  : 'Your mail app should be open. If it didn’t, copy my email instead.'}
+              </p>
+            )}
           </motion.form>
 
           <motion.div
@@ -110,8 +121,27 @@ export default function Party({ onCopyEmail, copied }) {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex flex-col gap-4 lg:col-span-5"
           >
+            <a
+              href={`https://wa.me/${PROFILE.whatsapp}?text=${encodeURIComponent('Hi Surya! I saw your portfolio and')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center gap-4 overflow-hidden border border-win/40 bg-win/10 p-5 transition-colors hover:border-win sm:p-6"
+            >
+              <span className="relative grid h-12 w-12 shrink-0 place-items-center bg-win/20 text-win">
+                <MessageCircle size={24} />
+                <span className="absolute inset-0 animate-ping bg-win/20" />
+              </span>
+              <span className="min-w-0">
+                <span className="hud-label block text-win">Fastest reply · WhatsApp</span>
+                <span className="block font-mono text-base text-white sm:text-lg">{PROFILE.whatsappDisplay}</span>
+              </span>
+              <span className="ml-auto font-display text-xs font-bold uppercase tracking-widest text-win transition-transform group-hover:translate-x-1">
+                Chat →
+              </span>
+            </a>
+
             <div className="hud-panel p-5 sm:p-6">
-              <p className="hud-label mb-2">Direct line</p>
+              <p className="hud-label mb-2">Email</p>
               <p className="break-all font-mono text-sm text-white sm:text-base">{PROFILE.email}</p>
               <button onClick={onCopyEmail} className="btn-ghost mt-4 w-full">
                 {copied ? <Check size={15} className="text-win" /> : <Copy size={15} />}

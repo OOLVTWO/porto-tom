@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Command } from 'cmdk';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Copy, Github, Linkedin, Trophy, Gamepad2 } from 'lucide-react';
+import { ArrowRight, Copy, Github, Linkedin, MessageCircle, Trophy, Gamepad2 } from 'lucide-react';
 import { SECTIONS, PROFILE } from '../data/profile';
 import { PROJECTS } from '../data/projects';
 import { scrollToSection } from './Hud';
@@ -87,6 +87,13 @@ export default function CommandPalette({ open, onOpenChange, onOpenMatch, onOpen
                 </Command.Group>
 
                 <Command.Group heading="Actions" className="[&_[cmdk-group-heading]]:hud-label [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2">
+                  <Command.Item
+                    value="chat whatsapp wa contact"
+                    onSelect={run(() => window.open(`https://wa.me/${PROFILE.whatsapp}`, '_blank', 'noopener'))}
+                    className={itemCls}
+                  >
+                    <MessageCircle size={16} className="text-win" /> Chat on WhatsApp
+                  </Command.Item>
                   <Command.Item value="copy email address" onSelect={run(onCopyEmail)} className={itemCls}>
                     <Copy size={16} className="text-cyan" /> Copy email address
                   </Command.Item>

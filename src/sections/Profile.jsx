@@ -68,7 +68,7 @@ function StageTags() {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.5 }}
-      className="absolute bottom-24 right-10 hidden flex-col items-end gap-2 lg:flex xl:right-16"
+      className="absolute bottom-40 right-10 hidden flex-col items-end gap-2 lg:flex xl:right-16"
     >
       <div className="relative border border-line bg-void/70 px-4 py-3 backdrop-blur">
         <p className="hud-label text-ember">Main role</p>

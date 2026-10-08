@@ -6,7 +6,9 @@ import { TopBar, BottomNav, scrollToSection } from './components/Hud';
 import BootScreen from './components/BootScreen';
 import CommandPalette from './components/CommandPalette';
 import MatchDetail from './components/MatchDetail';
-import { AchievementToasts, TrophyRoom } from './components/Achievements';
+import { AchievementToasts, Announcer, TrophyRoom } from './components/Achievements';
+import Byte from './components/Byte';
+import ClickSparks from './components/ClickSparks';
 import Profile from './sections/Profile';
 import Loadout from './sections/Loadout';
 import MatchHistory from './sections/MatchHistory';
@@ -118,6 +120,9 @@ function Lobby() {
       />
       <TrophyRoom open={trophiesOpen} onClose={() => setTrophiesOpen(false)} />
       <AchievementToasts />
+      <Announcer />
+      <Byte active={active} />
+      <ClickSparks />
     </>
   );
 }

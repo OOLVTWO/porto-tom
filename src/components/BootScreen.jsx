@@ -6,6 +6,7 @@ const TIPS = [
   'Tap a loadout item to see which matches used it.',
   'Swipe between matches when a match is open.',
   'Some achievements are hidden in plain sight.',
+  'Say hi to Byte in the corner. Click it for tips.',
 ];
 
 const KEY = 'porto:booted';
