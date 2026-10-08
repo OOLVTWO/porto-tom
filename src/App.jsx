@@ -6,7 +6,11 @@ import { TopBar, BottomNav, scrollToSection } from './components/Hud';
 import BootScreen from './components/BootScreen';
 import CommandPalette from './components/CommandPalette';
 import MatchDetail from './components/MatchDetail';
-import { AchievementToasts, TrophyRoom } from './components/Achievements';
+import { AchievementToasts, AnnounceBanner, Announcer, TrophyRoom } from './components/Achievements';
+import { PROJECTS } from './data/projects';
+import * as sfx from './lib/sfx';
+import Byte from './components/Byte';
+import ClickSparks from './components/ClickSparks';
 import Profile from './sections/Profile';
 import Loadout from './sections/Loadout';
 import MatchHistory from './sections/MatchHistory';
@@ -36,7 +40,7 @@ function useActiveSection() {
 
 function Footer() {
   return (
-    <footer className="border-t border-line pb-24 pt-10 md:pb-10">
+    <footer className="border-t border-line pb-24 pt-10 lg:pb-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 text-center sm:flex-row sm:px-6 sm:text-left lg:px-10">
         <p className="font-mono text-xs text-dim">
           © {new Date().getFullYear()} {PROFILE.name}. Built with React, Tailwind and Motion.
@@ -63,12 +67,31 @@ function Lobby() {
     if (paletteOpen) unlock('speedrunner');
   }, [paletteOpen, unlock]);
 
+  // Kill streak: every match opened in a row climbs a level (capped at Savage).
+  // Landing on match #1 starts the streak over from First Blood.
+  const streak = useRef(0);
+  const [streakBanner, setStreakBanner] = useState(null);
+  const bannerTimer = useRef();
+
   const openMatch = useCallback(
     (slug) => {
       setOpenSlug(slug);
       trackMatch(slug);
+      streak.current = slug === PROJECTS[0].slug ? 1 : streak.current + 1;
+      const level = Math.min(streak.current, sfx.STREAKS.length);
+      const project = PROJECTS.find((p) => p.slug === slug);
+      sfx.streak(level);
+      if (level === sfx.STREAKS.length) unlock('savage-streak');
+      setStreakBanner({
+        key: `${slug}-${Date.now()}`,
+        title: sfx.STREAKS[level - 1],
+        subtitle: streak.current > level ? `${streak.current} in a row · ${project.title}` : project.title,
+        level,
+      });
+      clearTimeout(bannerTimer.current);
+      bannerTimer.current = setTimeout(() => setStreakBanner(null), 1300);
     },
-    [trackMatch],
+    [trackMatch, unlock],
   );
 
   const filterByItem = useCallback(
@@ -108,7 +131,14 @@ function Lobby() {
       <Footer />
       <BottomNav active={active} />
 
-      <MatchDetail slug={openSlug} onClose={() => setOpenSlug(null)} onNavigate={openMatch} />
+      <MatchDetail
+        slug={openSlug}
+        onClose={() => {
+          sfx.whoosh();
+          setOpenSlug(null);
+        }}
+        onNavigate={openMatch}
+      />
       <CommandPalette
         open={paletteOpen}
         onOpenChange={setPaletteOpen}
@@ -118,6 +148,10 @@ function Lobby() {
       />
       <TrophyRoom open={trophiesOpen} onClose={() => setTrophiesOpen(false)} />
       <AchievementToasts />
+      <Announcer />
+      <AnnounceBanner item={streakBanner} />
+      <Byte active={active} />
+      <ClickSparks />
     </>
   );
 }

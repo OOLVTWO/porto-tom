@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
-import { Command, History, Search, Trophy, UserPlus, UserRound, Backpack, Images } from 'lucide-react';
+import { Command, History, Search, Trophy, UserPlus, UserRound, Backpack, Images, Volume2, VolumeX } from 'lucide-react';
+import * as sfx from '../lib/sfx';
 import { SECTIONS, PROFILE } from '../data/profile';
 import { ACHIEVEMENTS, useAchievements } from '../lib/achievements';
 
@@ -23,6 +25,27 @@ function isMac() {
   return typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
 }
 
+export function useSound() {
+  const [muted, setMuted] = useState(sfx.isMuted);
+  useEffect(() => sfx.onMuteChange(setMuted), []);
+  return [muted, () => sfx.setMuted(!muted)];
+}
+
+function SoundToggle() {
+  const [muted, toggle] = useSound();
+  return (
+    <button
+      onClick={toggle}
+      className={`grid h-9 w-9 place-items-center border border-line bg-raised/60 transition-colors hover:border-ember/60 ${muted ? 'text-dim' : 'text-ember'}`}
+      aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
+      aria-pressed={!muted}
+      title={muted ? 'Sound off' : 'Sound on'}
+    >
+      {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+    </button>
+  );
+}
+
 export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
   const { unlocked } = useAchievements();
   const level = 1 + unlocked.length;
@@ -37,17 +60,17 @@ export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
           </span>
           <span className="hidden flex-col items-start leading-none sm:flex">
             <span className="font-display text-sm font-bold tracking-[0.2em] text-white">{PROFILE.handle}</span>
-            <span className="mt-1 font-mono text-[10px] text-mute">Lv.{level} · Bali</span>
+            <span className="mt-1 whitespace-nowrap font-mono text-[10px] text-mute">Lv.{level} · Bali</span>
           </span>
         </button>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Sections">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Sections">
           {SECTIONS.map((s) => (
             <button
               key={s.id}
               onClick={() => scrollToSection(s.id)}
               aria-current={active === s.id ? 'true' : undefined}
-              className={`relative px-3 py-2 font-display text-xs font-semibold uppercase tracking-[0.16em] transition-colors ${
+              className={`relative whitespace-nowrap px-3 py-2 font-display text-xs font-semibold uppercase tracking-[0.16em] transition-colors ${
                 active === s.id ? 'text-white' : 'text-mute hover:text-ink'
               }`}
             >
@@ -60,6 +83,7 @@ export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SoundToggle />
           <button
             onClick={onOpenTrophies}
             className="flex h-9 items-center gap-2 border border-line bg-raised/60 px-3 text-mute transition-colors hover:border-gold/60 hover:text-gold"
@@ -76,7 +100,7 @@ export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
             aria-label="Open command menu"
           >
             <Search size={16} className="sm:hidden" />
-            <span className="hidden items-center gap-1 font-mono text-xs sm:flex">
+            <span className="hidden items-center gap-1 whitespace-nowrap font-mono text-xs sm:flex">
               {isMac() ? <Command size={12} /> : 'Ctrl'} K
             </span>
           </button>
@@ -90,7 +114,7 @@ export function BottomNav({ active }) {
   return (
     <nav
       aria-label="Sections"
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-void/95 backdrop-blur-md md:hidden"
+      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-void/95 backdrop-blur-md lg:hidden"
     >
       <div className="grid grid-cols-5">
         {SECTIONS.map((s) => {

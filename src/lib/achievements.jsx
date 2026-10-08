@@ -1,14 +1,15 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-// Kill-streak names borrowed from MLBB. `hint` is shown while the badge is still locked.
+// Ids are kept stable so saved progress survives renames.
 export const ACHIEVEMENTS = [
-  { id: 'first-blood', name: 'First Blood', hint: 'Open any match from the match history.' },
-  { id: 'triple-kill', name: 'Triple Kill', hint: 'Open 3 different matches.' },
+  { id: 'first-blood', name: 'Recon', hint: 'Open any match from the match history.' },
+  { id: 'triple-kill', name: 'Analyst', hint: 'Open 3 different matches.' },
+  { id: 'savage-streak', name: 'Savage', hint: 'Reach a Savage streak in the match history.' },
   { id: 'scout', name: 'Scout', hint: 'Filter the match history by a loadout item.' },
   { id: 'map-awareness', name: 'Map Awareness', hint: 'Visit every section of the lobby.' },
   { id: 'speedrunner', name: 'Speedrunner', hint: 'Open the command menu (Ctrl K or ⌘K).' },
   { id: 'party-up', name: 'Party Up', hint: 'Send an invite from the Party section.' },
-  { id: 'savage', name: 'Savage', hint: 'Unlock every other achievement.' },
+  { id: 'savage', name: 'Legendary', hint: 'Unlock every other achievement.' },
 ];
 
 const KEY = 'porto:achievements';

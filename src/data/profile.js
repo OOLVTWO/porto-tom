@@ -4,6 +4,9 @@ export const PROFILE = {
   role: 'Software Engineer',
   base: 'Bali, Indonesia',
   email: 'suryaadidarmawan077@gmail.com',
+  // International format, no plus sign (wa.me links).
+  whatsapp: '6281239627764',
+  whatsappDisplay: '0812-3962-7764',
   intro:
     'I build full-stack web apps for real businesses: booking sites, admin dashboards and the databases behind them. Off-screen, I run esports tournaments.',
   // Self-rated, shown as hero attribute bars.

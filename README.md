@@ -13,6 +13,8 @@ An interactive portfolio styled like a game lobby. Built with React, Vite, Tailw
 
 Extras:
 - XP bar that fills as you scroll, plus achievements (First Blood, Triple Kill, Savage, etc.) saved in `localStorage`
+- Kill-streak announcer in the match history: each match opened in a row climbs First Blood → Double Kill → Triple Kill → Maniac → Savage (then stays on Savage). Landing on match #1 starts over.
+- Byte, a draggable robot companion with tips, plus spark/"+XP" click effects
 - Command menu with `Ctrl K` / `⌘K`
 - "Matchmaking" boot screen, shown once per session
 - Bottom tab bar on mobile, full keyboard support, honours `prefers-reduced-motion`
@@ -22,6 +24,20 @@ All content lives in `src/data/`:
 - `projects.js`: projects (match history). Screenshots go in `public/projects/<slug>/`
 - `loadout.js`: tech items. The "used in" lists are generated from `projects.js`
 - `profile.js`: name, intro, attribute bars, socials and highlight photos
+
+## Sound
+All sounds are synthesised in `src/lib/sfx.js` with the Web Audio API, and the announcer voice uses the browser's speech synthesis. Visitors can mute with the speaker button in the top bar.
+
+To use your own recordings (for example a voice line you recorded or a royalty-free pack), put the files in `public/sfx/` and map them in `CUSTOM_FILES` at the top of `src/lib/sfx.js`:
+
+```js
+const CUSTOM_FILES = {
+  'streak-1': '/sfx/first-blood.mp3',
+  'streak-5': '/sfx/savage.mp3',
+};
+```
+
+Mapped files replace the synth for that sound. Don't use the official MLBB announcer audio; it belongs to Moonton.
 
 ## Local development
 
