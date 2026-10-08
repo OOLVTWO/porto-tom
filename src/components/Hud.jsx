@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
-import { Command, History, Search, Trophy, UserPlus, UserRound, Backpack, Images } from 'lucide-react';
+import { Command, History, Search, Trophy, UserPlus, UserRound, Backpack, Images, Volume2, VolumeX } from 'lucide-react';
+import * as sfx from '../lib/sfx';
 import { SECTIONS, PROFILE } from '../data/profile';
 import { ACHIEVEMENTS, useAchievements } from '../lib/achievements';
 
@@ -21,6 +23,27 @@ function XpBar() {
 
 function isMac() {
   return typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+}
+
+export function useSound() {
+  const [muted, setMuted] = useState(sfx.isMuted);
+  useEffect(() => sfx.onMuteChange(setMuted), []);
+  return [muted, () => sfx.setMuted(!muted)];
+}
+
+function SoundToggle() {
+  const [muted, toggle] = useSound();
+  return (
+    <button
+      onClick={toggle}
+      className={`grid h-9 w-9 place-items-center border border-line bg-raised/60 transition-colors hover:border-ember/60 ${muted ? 'text-dim' : 'text-ember'}`}
+      aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
+      aria-pressed={!muted}
+      title={muted ? 'Sound off' : 'Sound on'}
+    >
+      {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+    </button>
+  );
 }
 
 export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
@@ -60,6 +83,7 @@ export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SoundToggle />
           <button
             onClick={onOpenTrophies}
             className="flex h-9 items-center gap-2 border border-line bg-raised/60 px-3 text-mute transition-colors hover:border-gold/60 hover:text-gold"

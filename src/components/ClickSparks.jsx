@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import * as sfx from '../lib/sfx';
 
 const COLORS = ['#FF5A36', '#F5C451', '#38D9F5'];
 const RAYS = 6;
@@ -10,9 +11,10 @@ export default function ClickSparks() {
   const [bursts, setBursts] = useState([]);
 
   useEffect(() => {
-    if (reduce) return;
     const onDown = (e) => {
       if (e.button !== 0) return;
+      sfx.blip();
+      if (reduce) return;
       const id = `${Date.now()}-${Math.random()}`;
       setBursts((b) => [...b.slice(-5), { id, x: e.clientX, y: e.clientY, xp: 5 * (1 + Math.floor(Math.random() * 4)) }]);
       setTimeout(() => setBursts((b) => b.filter((x) => x.id !== id)), 800);

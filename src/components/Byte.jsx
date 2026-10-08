@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
 import { X } from 'lucide-react';
 import { ACHIEVEMENTS, useAchievements } from '../lib/achievements';
+import * as sfx from '../lib/sfx';
 
 // Byte: a small robot companion. Eyes track the cursor, it hints per section,
 // emotes on click and cheers when an achievement unlocks.
@@ -9,7 +10,7 @@ import { ACHIEVEMENTS, useAchievements } from '../lib/achievements';
 const SECTION_TIPS = {
   profile: 'Hi, I’m Byte! Welcome to Surya’s lobby.',
   loadout: 'Tap an item to see which matches used it.',
-  matches: 'Open a match. You can swipe to the next one!',
+  matches: 'Open matches in a row to build a kill streak. Sound on!',
   highlights: 'This is the off-screen side of the lobby.',
   party: 'Ready to party up? WhatsApp gets the fastest reply.',
 };
@@ -17,7 +18,8 @@ const SECTION_TIPS = {
 const CLICK_LINES = [
   'GG!',
   'Try Ctrl K (⌘K) to jump anywhere.',
-  'Psst… there are 7 achievements to unlock.',
+  'Psst… there are 8 achievements to unlock.',
+  'Open matches back to back for a kill streak!',
   'Need a website? Invite Surya to your party!',
   'Drag me around if I’m in the way.',
   'Every match here is a real project.',
@@ -214,6 +216,7 @@ export default function Byte({ active }) {
     if (dragged.current) return;
     const line = CLICK_LINES[lineIdx.current % CLICK_LINES.length];
     lineIdx.current += 1;
+    sfx.boop();
     emote(line === 'GG!' ? 'happy' : 'wow');
     say(line, 3200);
   };

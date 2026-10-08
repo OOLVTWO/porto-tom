@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Command } from 'cmdk';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Copy, Github, Linkedin, MessageCircle, Trophy, Gamepad2 } from 'lucide-react';
+import { ArrowRight, Copy, Github, Linkedin, MessageCircle, Trophy, Gamepad2, Volume2 } from 'lucide-react';
+import * as sfx from '../lib/sfx';
 import { SECTIONS, PROFILE } from '../data/profile';
 import { PROJECTS } from '../data/projects';
 import { scrollToSection } from './Hud';
@@ -96,6 +97,9 @@ export default function CommandPalette({ open, onOpenChange, onOpenMatch, onOpen
                   </Command.Item>
                   <Command.Item value="copy email address" onSelect={run(onCopyEmail)} className={itemCls}>
                     <Copy size={16} className="text-cyan" /> Copy email address
+                  </Command.Item>
+                  <Command.Item value="toggle sound audio mute" onSelect={run(() => sfx.setMuted(!sfx.isMuted()))} className={itemCls}>
+                    <Volume2 size={16} className="text-cyan" /> Toggle sound
                   </Command.Item>
                   <Command.Item value="trophy achievements" onSelect={run(onOpenTrophies)} className={itemCls}>
                     <Trophy size={16} className="text-cyan" /> View achievements
