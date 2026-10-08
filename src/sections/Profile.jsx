@@ -39,7 +39,7 @@ function StageBackdrop() {
     <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
       <motion.div
         style={reduce ? undefined : { y: scrollShift }}
-        className="absolute inset-x-0 top-0 h-[78svh] max-lg:[mask-image:linear-gradient(to_bottom,black_55%,transparent)] lg:inset-0 lg:h-auto"
+        className="absolute inset-x-0 top-0 h-[78svh] max-md:[mask-image:linear-gradient(to_bottom,black_55%,transparent)] md:inset-0 md:h-auto"
       >
         <motion.img
           src="/images/hero-bg.jpg"
@@ -53,9 +53,9 @@ function StageBackdrop() {
         />
       </motion.div>
       {/* Mobile: fade from the bottom so text sits on solid dark. Desktop: fade from the left. */}
-      <div className="absolute inset-x-0 top-0 h-[78svh] bg-gradient-to-t from-void via-void/40 to-void/10 lg:hidden" />
-      <div className="absolute inset-0 hidden bg-gradient-to-r from-void via-void/75 to-void/5 lg:block" />
-      <div className="absolute inset-0 hidden bg-gradient-to-t from-void via-transparent to-void/40 lg:block" />
+      <div className="absolute inset-x-0 top-0 h-[78svh] bg-gradient-to-t from-void via-void/40 to-void/10 md:hidden" />
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-void via-void/75 to-void/5 md:block" />
+      <div className="absolute inset-0 hidden bg-gradient-to-t from-void via-transparent to-void/40 md:block" />
       <div className="absolute inset-0 bg-grid opacity-60" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 animate-scan bg-gradient-to-b from-transparent via-ember/[0.04] to-transparent" />
     </div>
@@ -68,7 +68,7 @@ function StageTags() {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.5 }}
-      className="absolute bottom-40 right-10 hidden flex-col items-end gap-2 lg:flex xl:right-16"
+      className="absolute bottom-40 right-10 hidden flex-col items-end gap-2 lg:right-10 lg:flex xl:right-16"
     >
       <div className="relative border border-line bg-void/70 px-4 py-3 backdrop-blur">
         <p className="hud-label text-ember">Main role</p>
@@ -107,7 +107,7 @@ export default function Profile() {
   return (
     <section
       id="profile"
-      className="relative flex min-h-[100svh] scroll-mt-16 flex-col justify-end overflow-hidden pt-[48svh] lg:justify-center lg:pt-16"
+      className="relative flex min-h-[100svh] scroll-mt-16 flex-col justify-end overflow-hidden pt-[48svh] md:min-h-[min(100svh,880px)] md:justify-center md:pt-16"
     >
       <StageBackdrop />
       <StageTags />

@@ -67,25 +67,26 @@ export function TopBar({ active, onOpenPalette, onOpenTrophies }) {
           <span className="hud-cut grid h-9 w-9 place-items-center bg-ember font-display text-sm font-bold text-white [--cut:8px]">
             SA
           </span>
-          <span className="hidden flex-col items-start leading-none sm:flex">
+          <span className="hidden flex-col items-start leading-none sm:flex md:hidden lg:flex">
             <span className="font-display text-sm font-bold tracking-[0.2em] text-white">{PROFILE.handle}</span>
             <span className="mt-1 whitespace-nowrap font-mono text-[10px] text-mute">Lv.{level} · Bali</span>
           </span>
         </button>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Sections">
+        <nav className="hidden items-center gap-0.5 md:flex lg:gap-1" aria-label="Sections">
           {SECTIONS.map((s) => (
             <button
               key={s.id}
               onClick={() => scrollToSection(s.id)}
               aria-current={active === s.id ? 'true' : undefined}
-              className={`relative whitespace-nowrap px-3 py-2 font-display text-xs font-semibold uppercase tracking-[0.16em] transition-colors ${
+              className={`relative whitespace-nowrap px-2 py-2 font-display text-xs font-semibold uppercase tracking-[0.1em] transition-colors lg:px-3 lg:tracking-[0.16em] ${
                 active === s.id ? 'text-white' : 'text-mute hover:text-ink'
               }`}
             >
-              {s.label}
+              <span className="lg:hidden">{s.short}</span>
+              <span className="hidden lg:inline">{s.label}</span>
               {active === s.id && (
-                <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-[13px] h-[2px] bg-ember" />
+                <motion.span layoutId="nav-underline" className="absolute inset-x-2 -bottom-[13px] h-[2px] bg-ember lg:inset-x-3" />
               )}
             </button>
           ))}
@@ -123,7 +124,7 @@ export function BottomNav({ active }) {
   return (
     <nav
       aria-label="Sections"
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-void/95 backdrop-blur-md lg:hidden"
+      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-void/95 backdrop-blur-md md:hidden"
     >
       <div className="grid grid-cols-5">
         {SECTIONS.map((s) => {

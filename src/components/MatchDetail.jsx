@@ -159,12 +159,12 @@ export default function MatchDetail({ slug, onClose, onNavigate }) {
                   }}
                   className="p-4 sm:p-6"
                 >
-                  <div className="grid gap-6 lg:grid-cols-5 lg:gap-8">
-                    <div className="min-w-0 lg:col-span-3">
+                  <div className="grid gap-6 md:grid-cols-5 lg:gap-8">
+                    <div className="min-w-0 md:col-span-3">
                       <ShotViewer key={project.slug} project={project} />
                     </div>
 
-                    <aside className="min-w-0 space-y-5 lg:col-span-2">
+                    <aside className="min-w-0 space-y-5 md:col-span-2">
                       <div>
                         <h2 id="match-title" className="font-display text-3xl font-bold uppercase tracking-wide text-white sm:text-4xl">
                           {project.title}
@@ -205,8 +205,8 @@ export default function MatchDetail({ slug, onClose, onNavigate }) {
                     </aside>
                   </div>
 
-                  <div className="mt-8 grid gap-8 border-t border-line pt-6 lg:grid-cols-5">
-                    <div className="lg:col-span-2">
+                  <div className="mt-8 grid gap-8 border-t border-line pt-6 md:grid-cols-5">
+                    <div className="md:col-span-2">
                       <h3 className="hud-label mb-2 text-ember">Mission</h3>
                       <p className="leading-relaxed text-mute">{project.mission}</p>
 
@@ -220,7 +220,7 @@ export default function MatchDetail({ slug, onClose, onNavigate }) {
                         ))}
                       </div>
                     </div>
-                    <div className="lg:col-span-3">
+                    <div className="md:col-span-3">
                       <h3 className="hud-label mb-3 text-ember">Key plays</h3>
                       <ul className="space-y-2.5">
                         {project.plays.map((play) => (

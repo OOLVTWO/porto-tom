@@ -245,7 +245,7 @@ export default function Byte({ active }) {
             animate={{ x: 0 }}
             exit={{ x: 40 }}
             onClick={show}
-            className="pointer-events-auto absolute bottom-[84px] right-0 border border-r-0 border-ember/50 bg-panel px-2 py-1.5 font-display text-[10px] font-bold uppercase tracking-widest text-ember lg:bottom-6"
+            className="pointer-events-auto absolute bottom-[84px] right-0 border border-r-0 border-ember/50 bg-panel px-2 py-1.5 font-display text-[10px] font-bold uppercase tracking-widest text-ember md:bottom-6"
             aria-label="Bring Byte back"
           >
             Byte
@@ -261,7 +261,7 @@ export default function Byte({ active }) {
             initial={{ opacity: 0, scale: 0.5, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 40 }}
-            className="pointer-events-auto absolute bottom-[84px] right-3 cursor-grab touch-none active:cursor-grabbing lg:bottom-6 lg:right-6"
+            className="pointer-events-auto absolute bottom-[84px] right-3 cursor-grab touch-none active:cursor-grabbing md:bottom-6 md:right-6"
           >
             <AnimatePresence>
               {bubble && (
@@ -297,7 +297,7 @@ export default function Byte({ active }) {
                 initial={false}
                 animate={hop && !reduce ? { y: [0, -16, 0], rotate: [0, -8, 8, 0] } : undefined}
                 transition={{ duration: 0.45 }}
-                className="block h-[68px] w-[62px] lg:h-[84px] lg:w-[76px]"
+                className="block h-[68px] w-[62px] md:h-[84px] md:w-[76px]"
                 aria-label="Byte, the lobby companion. Click for a tip."
               >
                 <ByteSprite mood={mood} lookX={lookX} lookY={lookY} blink={blink} />
