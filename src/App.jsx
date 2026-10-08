@@ -36,7 +36,7 @@ function useActiveSection() {
 
 function Footer() {
   return (
-    <footer className="border-t border-line pb-24 pt-10 md:pb-10">
+    <footer className="border-t border-line pb-24 pt-10 lg:pb-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 text-center sm:flex-row sm:px-6 sm:text-left lg:px-10">
         <p className="font-mono text-xs text-dim">
           © {new Date().getFullYear()} {PROFILE.name}. Built with React, Tailwind and Motion.
