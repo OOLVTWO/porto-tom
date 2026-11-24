@@ -39,12 +39,6 @@ export const HIGHLIGHTS = [
     caption: 'On the mic as person in charge (PIC) of a Mobile Legends: Bang Bang tournament.',
   },
   {
-    src: '/images/speaking-2.jpg',
-    position: '52% 55%',
-    title: 'Running the show off-screen too',
-    caption: 'Organizing and hosting on stage during the MLBB tournament, not just behind a keyboard.',
-  },
-  {
     src: '/images/moment-ceremony.jpg',
     position: 'center 15%',
     title: 'Dressed up for a Bali ceremony',
