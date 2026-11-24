@@ -45,12 +45,6 @@ export const HIGHLIGHTS = [
     caption: 'Organizing and hosting on stage during the MLBB tournament, not just behind a keyboard.',
   },
   {
-    src: '/images/moment-beach.jpg',
-    position: 'center 45%',
-    title: 'Weekend reset with the crew',
-    caption: 'Snacks, sand and no laptops in sight. The other side of the schedule.',
-  },
-  {
     src: '/images/moment-ceremony.jpg',
     position: 'center 15%',
     title: 'Dressed up for a Bali ceremony',
@@ -61,11 +55,5 @@ export const HIGHLIGHTS = [
     position: 'center 45%',
     title: 'Photobooth memories',
     caption: 'Old photobooth strips with friends. Not everything needs a deadline.',
-  },
-  {
-    src: '/images/moment-birthday.jpg',
-    position: 'center 35%',
-    title: 'Celebrating together',
-    caption: 'A birthday celebration with a big group of friends, cake included.',
   },
 ];
